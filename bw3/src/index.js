@@ -9,9 +9,9 @@ import { persistor } from "./Redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <Provider store={store}>
-  //   <PersistGate persistor={persistor}>
-  <App />
-  //   </PersistGate>
-  // </Provider>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
 );
