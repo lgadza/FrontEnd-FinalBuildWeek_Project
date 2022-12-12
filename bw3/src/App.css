@@ -55,7 +55,54 @@
   height: 3rem;
   border-radius: 50%;
   border: 2px solid white;
+  margin-left: 40% !important;
 }
 .profile-views {
   font-size: 0.8rem;
+  color: black;
+}
+.profil-premium-info {
+  font-size: 12px;
+}
+.try-premium {
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
+}
+.my-items {
+  font-weight: bold;
+}
+.top-profile-section {
+  border: 1px solid black;
+  height: fit-content;
+  border-radius: 10px;
+}
+a {
+  color: black !important;
+}
+.search-results {
+  height: 90vh;
+  background-color: antiquewhite;
+  width: 40%;
+  border-radius: 8px;
+}
+.nav-arrange {
+  display: flex;
+  align-items: flex-start !important;
+}
+.search-profiles {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  display: flex;
+}
+.search-profile {
+  font-size: 12px;
+}
+.my-navBar {
+  position: fixed !important;
+  top: 0;
+  z-index: 1 !important;
+}
+.top-z-index {
 }

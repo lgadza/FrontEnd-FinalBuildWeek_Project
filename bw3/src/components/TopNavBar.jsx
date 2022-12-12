@@ -10,67 +10,101 @@ import {
 import { Link } from "react-router-dom";
 
 import * as Icon from "react-bootstrap-icons";
+import SearchResults from "./SearchResuts";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { getMuiltiProfileData } from "../Redux/actions";
+
 const TopNavBar = () => {
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const profiles = useSelector((state) => state.profiles.profileData);
+  console.log(
+    profiles.filter(
+      (user) => user.name.includes(query) || user.surname.includes(query)
+    )
+  );
+  console.log(query);
+  useEffect(() => {
+    dispatch(getMuiltiProfileData());
+  }, []);
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("form submitted ✅");
+  };
+
   return (
-    <Navbar bg="light" variant="light">
-      <Container>
-        <Navbar.Brand className="d-flex align-items-center" to="#home">
+    <Navbar bg="light" variant="light" className="my-navBar">
+      <Container className=" nav-arrange ">
+        <Navbar.Brand className="d-flex " to="#home">
           <Icon.Linkedin color="blue" size={40} />
-          <div size={30} className="d-flex align-items-center ml-4 search-me ">
-            <Icon.Search size={15} className="mx-3" />
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2 py-0"
-                aria-label="Search"
-              />
-            </Form>
+          <div>
+            <div
+              size={30}
+              className="d-flex align-items-center ml-4 search-me "
+            >
+              <Icon.Search size={15} className="mx-3" />
+              <Form onSubmit={handleSubmit} className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2 py-0"
+                  aria-label="Search"
+                  value={query}
+                  onChange={handleChange}
+                />
+              </Form>
+            </div>
+            <SearchResults profiles={profiles} className="top-z-index" />
           </div>
         </Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link to="/home">
+        <Nav className="me-auto ">
+          <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
                 <Icon.HouseDoor size={20} className="mx-3" />
               </div>
               <div>Home</div>
             </div>
-          </Nav.Link>
-          <Nav.Link to="/home">
-            <div className="d-flex align-items-center justfy-content-center flex-column">
+          </Link>
+          <Link to="/home">
+            <div className="d-flex align-items-center justfy-content-center flex-column mx-3">
               <div>
                 <Icon.PeopleFill size={20} className="mx-3" />
               </div>
               <div>My Network</div>
             </div>
-          </Nav.Link>
-          <Nav.Link to="/home">
+          </Link>
+          <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
                 <Icon.BriefcaseFill size={20} className="mx-3" />
               </div>
               <div>Jobs</div>
             </div>
-          </Nav.Link>
-          <Nav.Link to="/home">
-            <div className="d-flex align-items-center justfy-content-center flex-column">
+          </Link>
+          <Link to="/home">
+            <div className="d-flex align-items-center justfy-content-center flex-column mx-3">
               <div>
                 <Icon.ChatSquareDotsFill size={20} className="mx-3" />
               </div>
               <div>Messaging</div>
             </div>
-          </Nav.Link>
-          <Nav.Link to="/home">
+          </Link>
+          <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
                 <Icon.BellFill size={20} className="mx-3" />
               </div>
               <div>Notifications</div>
             </div>
-          </Nav.Link>
-          <Nav.Link to="/home">
-            <div className="d-flex align-items-center justfy-content-center flex-column">
+          </Link>
+          <Link to="/home">
+            <div className="d-flex align-items-center justfy-content-center flex-column mx-3">
               <div>
                 <img src="" alt="" />
               </div>
@@ -90,16 +124,16 @@ const TopNavBar = () => {
                 </NavDropdown>
               </div>
             </div>
-          </Nav.Link>
+          </Link>
 
-          <Nav.Link to="/home">
+          <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
                 <Icon.BellFill size={20} className="mx-3" />
               </div>
               <div>Work</div>
             </div>
-          </Nav.Link>
+          </Link>
         </Nav>
       </Container>
     </Navbar>
