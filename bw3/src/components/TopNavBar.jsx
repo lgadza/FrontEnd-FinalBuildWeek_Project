@@ -71,7 +71,7 @@ const TopNavBar = () => {
           </div>
         </Navbar.Brand>
         <Nav className="me-auto fix-width ">
-          <Link to="/home">
+          <Link to="/">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
                 <Icon.HouseDoor size={20} className="mx-3" />

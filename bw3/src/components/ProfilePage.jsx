@@ -27,11 +27,11 @@ const ProfilePage = () => {
     borderTopRightRadius: "10px",
   };
   return (
-    <Col md={3} className="mt-5 pt-5 back-ground px-0">
+    <Col className="mt-5  back-ground px-0 w-100">
       {profileData && (
         <div className="top-profile-section">
           <div style={myStyle} className="mx-auto w-100 px-3 m-0 ">
-            <Link>
+            <Link to="/profile">
               <img
                 className="profile-picture  mt-5 "
                 src={profileData.image}

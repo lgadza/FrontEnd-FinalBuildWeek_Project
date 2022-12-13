@@ -8,7 +8,7 @@ import localStorage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import multProfileReducer from "../reducers/multProfileReducer";
-
+import editProfileReducer from "../reducers/editProfile";
 const persistConfig = {
   key: "root",
   storage: localStorage,
@@ -22,6 +22,7 @@ const persistConfig = {
 const bigReducer = combineReducers({
   profile: profileReducer,
   profiles: multProfileReducer,
+  edit: editProfileReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

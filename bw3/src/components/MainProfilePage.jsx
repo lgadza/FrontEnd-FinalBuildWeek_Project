@@ -28,7 +28,7 @@ const MainProfilePage = () => {
     borderTopRightRadius: "10px",
   };
   return (
-    <Container className="p-0 m-0">
+    <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto">
       <Row>
         <Col md={9} className="mt-5  back-ground px-0">
           {profileData && (
@@ -46,7 +46,7 @@ const MainProfilePage = () => {
                     color="green"
                   />
                 </Link>
-                <Link>
+                <Link to="/edit">
                   <Icon.Pencil size={25} className="edit-pencil" />
                 </Link>
               </div>
@@ -108,7 +108,9 @@ const MainProfilePage = () => {
           )}
         </Col>
       </Row>
-      <UserExperince profileData={profileData} />
+      <Row>
+        <UserExperince profileData={profileData} />
+      </Row>
     </Container>
   );
 };
