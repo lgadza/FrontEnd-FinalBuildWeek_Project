@@ -7,6 +7,9 @@ import ProfilePage from "./components/ProfilePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SearchResults from "./components/SearchResuts";
 import UserProfile from "./components/UserProfile";
+import PostSection from "./components/PostSection";
+import MainProfilePage from "./components/MainProfilePage";
+import EditIntro from "./components/EditIntro";
 function App() {
   return (
     <BrowserRouter>
@@ -14,7 +17,11 @@ function App() {
         <TopNavBar />
         <ProfilePage />
         <UserProfile />
+        <PostSection />
+        <MainProfilePage />
+        <EditIntro />
       </Container>
+
       <Routes>
         {/* <Route element={<SearchResults />} path="/search" /> */}
       </Routes>

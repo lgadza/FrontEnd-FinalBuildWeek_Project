@@ -137,7 +137,7 @@ const TopNavBar = () => {
           <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
-                <Icon.BellFill size={20} className="mx-3" />
+                <Icon.Grid3x3GapFill size={20} className="mx-3" />
               </div>
               <div>Work</div>
             </div>

@@ -164,6 +164,39 @@ input[type="search"]:focus {
   border: 2px solid white;
   border-radius: 50%;
 }
-body {
+/* body {
   background-color: beige !important;
+} */
+.back-ground {
+  background-color: white;
+}
+.post-section {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.post-btn {
+  border-radius: 30px !important;
+}
+.post-btn:hover {
+  background-color: white !important;
+  color: black !important;
+}
+.article {
+  color: orangered !important;
+}
+.add-more-section {
+  border-color: blue;
+  color: blue;
+}
+.edit-pencil {
+  position: absolute;
+  right: 2rem;
+  top: 12rem;
+}
+.gray-out {
+  color: gray;
+  font-weight: lighter;
+}
+.expirence-border {
+  border: 1 solid black !important;
 }
