@@ -27,7 +27,7 @@ const ProfilePage = () => {
     borderTopRightRadius: "10px",
   };
   return (
-    <Col md={3} className="mt-5 pt-4">
+    <Col md={3} className="mt-5 pt-5">
       {profileData && (
         <div className="top-profile-section">
           <div style={myStyle} className="mx-auto w-100 px-3 m-0 ">

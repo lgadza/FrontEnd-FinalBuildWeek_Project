@@ -6,16 +6,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ProfilePage from "./components/ProfilePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SearchResults from "./components/SearchResuts";
+import UserProfile from "./components/UserProfile";
 function App() {
   return (
     <BrowserRouter>
       <Container>
         <TopNavBar />
         <ProfilePage />
-        <SearchResults />
+        <UserProfile />
       </Container>
       <Routes>
-        <Route element={<SearchResults />} path="/search" />
+        {/* <Route element={<SearchResults />} path="/search" /> */}
       </Routes>
     </BrowserRouter>
   );

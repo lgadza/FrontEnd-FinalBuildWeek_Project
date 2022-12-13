@@ -16,14 +16,15 @@ import { useState, useEffect } from "react";
 import { getMuiltiProfileData } from "../Redux/actions";
 
 const TopNavBar = () => {
+  const [isMyInputFocused, setIsMyInputFocused] = useState(false);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const profiles = useSelector((state) => state.profiles.profileData);
-  console.log(
-    profiles.filter(
-      (user) => user.name.includes(query) || user.surname.includes(query)
-    )
+
+  const filteredProfiles = profiles.filter(
+    (user) => user.name.includes(query) || user.surname.includes(query)
   );
+
   console.log(query);
   useEffect(() => {
     dispatch(getMuiltiProfileData());
@@ -40,7 +41,7 @@ const TopNavBar = () => {
   return (
     <Navbar bg="light" variant="light" className="my-navBar">
       <Container className=" nav-arrange ">
-        <Navbar.Brand className="d-flex " to="#home">
+        <Navbar.Brand className="d-flex fix-width " to="#home">
           <Icon.Linkedin color="blue" size={40} />
           <div>
             <div
@@ -56,13 +57,20 @@ const TopNavBar = () => {
                   aria-label="Search"
                   value={query}
                   onChange={handleChange}
+                  onFocus={() => setIsMyInputFocused(true)}
+                  onBlur={() => setIsMyInputFocused(false)}
                 />
               </Form>
             </div>
-            <SearchResults profiles={profiles} className="top-z-index" />
+            {isMyInputFocused && (
+              <SearchResults
+                profiles={filteredProfiles}
+                className="top-z-index"
+              />
+            )}
           </div>
         </Navbar.Brand>
-        <Nav className="me-auto ">
+        <Nav className="me-auto fix-width ">
           <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column">
               <div>
@@ -72,7 +80,7 @@ const TopNavBar = () => {
             </div>
           </Link>
           <Link to="/home">
-            <div className="d-flex align-items-center justfy-content-center flex-column mx-3">
+            <div className="d-flex align-items-center justfy-content-center flex-column mx-2">
               <div>
                 <Icon.PeopleFill size={20} className="mx-3" />
               </div>
@@ -88,7 +96,7 @@ const TopNavBar = () => {
             </div>
           </Link>
           <Link to="/home">
-            <div className="d-flex align-items-center justfy-content-center flex-column mx-3">
+            <div className="d-flex align-items-center justfy-content-center flex-column mx-2">
               <div>
                 <Icon.ChatSquareDotsFill size={20} className="mx-3" />
               </div>
@@ -104,7 +112,7 @@ const TopNavBar = () => {
             </div>
           </Link>
           <Link to="/home">
-            <div className="d-flex align-items-center justfy-content-center flex-column mx-3">
+            <div className="d-flex align-items-center justfy-content-center flex-column mx-2">
               <div>
                 <img src="" alt="" />
               </div>

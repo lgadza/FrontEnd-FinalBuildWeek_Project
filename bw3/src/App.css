@@ -50,6 +50,11 @@
   border-radius: 8px;
   min-height: 15px !important;
 }
+.search-me:focus {
+  border: 1px solid rgb(8, 8, 8) !important;
+  border-radius: 8px;
+}
+
 .profile-picture {
   width: 3rem;
   height: 3rem;
@@ -81,10 +86,12 @@ a {
   color: black !important;
 }
 .search-results {
-  height: 90vh;
-  background-color: antiquewhite;
-  width: 40%;
+  max-height: 85vh;
+  max-width: 30vw !important;
   border-radius: 8px;
+  border: 1px solid gray;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .nav-arrange {
   display: flex;
@@ -104,5 +111,59 @@ a {
   top: 0;
   z-index: 1 !important;
 }
-.top-z-index {
+
+img[alt] {
+  font-size: 8px;
+}
+input[type="search"]:focus {
+  /* border: none !important; */
+  border-color: rgba(28, 29, 28, 0.5);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(126, 239, 104, 0.1);
+  outline: 0 none;
+}
+.fix-width {
+  width: 40vw !important;
+}
+.title {
+  display: inline-block;
+  max-width: 200px;
+  white-space: nowrap;
+  text-overflow: ellipsis !important;
+  overflow: hidden;
+}
+.user-profile-picture {
+  width: 8rem;
+  height: 8rem;
+  border: 3px solid white;
+  border-radius: 50%;
+  margin-top: 40rem !important;
+  transform: translateY(2rem);
+}
+.followers {
+  font-size: 0.75rem !important;
+}
+.message-user {
+  background-color: blue;
+  color: white;
+  width: fit-content;
+  border-radius: 1rem;
+}
+.message-more {
+  width: fit-content;
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+.position-image {
+  position: relative;
+}
+.record-online {
+  position: absolute;
+  bottom: -6rem;
+  left: 5.75rem;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+body {
+  background-color: beige !important;
 }
