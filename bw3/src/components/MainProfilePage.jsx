@@ -1,10 +1,12 @@
-import { Col, Container, Badge, Row } from "react-bootstrap";
+import { Col, Container, Badge, Row, Button, Dropdown } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfilData } from "../Redux/actions/index";
 import { Link } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import UserExperince from "./UserExperince";
+import ExperienceSection from "./ExperienceSection";
+import EditIntro from "./EditIntro";
 
 const MainProfilePage = () => {
   const [data, setData] = useState("");
@@ -27,6 +29,14 @@ const MainProfilePage = () => {
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   };
+  const [show, setShow] = useState(false);
+  //   const [editShow, setEditShow] = useState(false);
+  console.log(show);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  //   const onClickEdit = () => setEditShow(true);
+
   return (
     <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto mt-5">
       <Row>
@@ -46,9 +56,12 @@ const MainProfilePage = () => {
                     color="green"
                   />
                 </Link>
-                <Link to="/edit">
-                  <Icon.Pencil size={25} className="edit-pencil" />
+                <Link className="edit-pencil" onClick={handleShow}>
+                  <Icon.Pencil color="#666666" size={22} />
                 </Link>
+                {/*<Link to="/edit">
+                  <Icon.Pencil size={25} className="edit-pencil" />
+                </Link> */}
               </div>
               <div className="d-flex justify-content-between mt-4">
                 <div>
@@ -83,15 +96,104 @@ const MainProfilePage = () => {
                       </Link>
                     </p>
                     <div className="d-flex align-items-center mt-4 ">
-                      <div className="message-user  px-3 py-1 mr-3">
-                        <span>Open to</span>
-                      </div>
-                      <div className="message-more px-4 py-1  mr-3 add-more-section">
+                      <Dropdown>
+                        <Dropdown.Toggle variant="" id="">
+                          <Link className="message-user  px-3 py-1 mr-3">
+                            <span>Open to</span>
+                          </Link>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            href="#"
+                            onClick={handleShow}
+                            className="fontsize14"
+                          >
+                            <h6>Finding a new job</h6>
+                            <span>
+                              Show recruiters and others that you’re Open to
+                              work
+                            </span>
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="fontsize14"
+                          >
+                            <h6>Hiring</h6>
+                            <span>
+                              Share that you’re hiring and attract qualified
+                              candidates Providing services
+                            </span>
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="fontsize14"
+                          >
+                            <h6>Providing services</h6>
+                            <span>
+                              Showcase services you offer so new clients can
+                              discover you
+                            </span>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      <Link className="message-more px-4 py-1  mr-3 add-more-section">
                         <span>Add profile section</span>
-                      </div>
-                      <div className="message-more  px-4 py-1">
-                        <span>More</span>
-                      </div>
+                      </Link>
+
+                      <Dropdown>
+                        <Dropdown.Toggle variant="" id="">
+                          <Link className="message-more  px-4 py-1">
+                            <span>More</span>
+                          </Link>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            href="#"
+                            onClick={handleShow}
+                            className="fontsize14"
+                          >
+                            <Icon.Arrow90degRight
+                              color="#666666"
+                              size={20}
+                              className="mr-3 mb-1"
+                            />
+                            Send profile in a message
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="fontsize14"
+                          >
+                            <Icon.Download
+                              color="#666666"
+                              size={20}
+                              className="mr-3 mb-1"
+                            />
+                            Save to PDF
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="fontsize14"
+                          >
+                            <Icon.FileEarmarkText
+                              color="#666666"
+                              size={20}
+                              className="mr-3 mb-1"
+                            />
+                            Build resume
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="fontsize14"
+                          >
+                            <Icon.InfoSquareFill
+                              color="#666666"
+                              size={20}
+                              className="mr-3 mb-1"
+                            />
+                            About this profile
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                     </div>
                   </div>
                 </div>
@@ -108,9 +210,14 @@ const MainProfilePage = () => {
           )}
         </Col>
       </Row>
+
       <Row>
-        <UserExperince profileData={profileData} />
+        <Col md={9} className="px-0">
+          <ExperienceSection />
+        </Col>
+        {/* <UserExperince profileData={profileData} /> */}
       </Row>
+      <EditIntro visible={show} onhide={handleClose} />
     </Container>
   );
 };

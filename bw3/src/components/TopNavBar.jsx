@@ -39,7 +39,7 @@ const TopNavBar = () => {
   };
 
   return (
-    <Navbar bg="light" variant="light" className="my-navBar">
+    <Navbar variant="light" className="my-navBar">
       <Container className=" nav-arrange ">
         <Navbar.Brand className="d-flex fix-width " to="#home">
           <Link to="/">
