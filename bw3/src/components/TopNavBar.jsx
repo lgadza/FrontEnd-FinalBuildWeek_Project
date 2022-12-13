@@ -81,7 +81,7 @@ const TopNavBar = () => {
               <div>Home</div>
             </div>
           </Link>
-          <Link to="/home">
+          <Link to="/user-profile/">
             <div className="d-flex align-items-center justfy-content-center flex-column mx-2">
               <div>
                 <Icon.PeopleFill size={20} className="mx-3" />

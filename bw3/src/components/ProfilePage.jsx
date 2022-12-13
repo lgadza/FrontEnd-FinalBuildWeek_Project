@@ -9,7 +9,6 @@ const ProfilePage = () => {
   const [data, setData] = useState("");
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile.profileData);
-  console.log(profileData.image);
 
   useEffect(() => {
     dispatch(getProfilData());
