@@ -4,7 +4,7 @@ import PostSection from "./PostSection";
 
 const Home = () => {
   return (
-    <Container>
+    <Container className="mt-5  home-page">
       <Row>
         <Col md={3}>
           <ProfilePage />

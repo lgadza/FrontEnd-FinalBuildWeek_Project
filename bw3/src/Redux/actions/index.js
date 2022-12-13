@@ -128,11 +128,10 @@ export const getMuiltiProfileData = (query) => {
     }
   };
 };
-export const getProfileEdit = (query) => {
-  console.log(query);
+export const getProfileEdit = (editedProfile) => {
   return async (dispatch) => {
     const options = {
-      method: "Post",
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -140,12 +139,14 @@ export const getProfileEdit = (query) => {
           "Bearer " +
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
       },
+      body: JSON.stringify(editedProfile),
     };
-    const url = "https://striveschool-api.herokuapp.com/api/profile/me";
+    const url = "https://striveschool-api.herokuapp.com/api/profile/";
     try {
       let response = await fetch(url, options);
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         dispatch({
           type: EDIT_PROFILE,
           payload: data,

@@ -211,11 +211,11 @@ input[type="search"]:focus {
   left: 90%;
 }
 .edit-intro-col {
-  border: 1px solid black;
+  border: 1px solid rgb(209, 196, 196);
   border-radius: 10px;
   position: relative;
-  max-height: 85vh !important;
-  overflow: scroll;
+  max-height: 82vh !important;
+  overflow-y: scroll;
 }
 .div-save-btn {
   display: block;
@@ -227,3 +227,9 @@ input[type="search"]:focus {
 /* .edit-intro-edit {
   position: fixed;
 } */
+.home-page {
+  margin-top: 10rem !important;
+}
+.dropdown-toggle::after {
+  content: none !important;
+}

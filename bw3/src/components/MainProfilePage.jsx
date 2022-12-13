@@ -28,7 +28,7 @@ const MainProfilePage = () => {
     borderTopRightRadius: "10px",
   };
   return (
-    <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto">
+    <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto mt-5">
       <Row>
         <Col md={9} className="mt-5  back-ground px-0">
           {profileData && (

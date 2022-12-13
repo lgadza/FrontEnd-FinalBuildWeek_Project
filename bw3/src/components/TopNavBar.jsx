@@ -42,7 +42,9 @@ const TopNavBar = () => {
     <Navbar bg="light" variant="light" className="my-navBar">
       <Container className=" nav-arrange ">
         <Navbar.Brand className="d-flex fix-width " to="#home">
-          <Icon.Linkedin color="blue" size={40} />
+          <Link to="/">
+            <Icon.Linkedin color="blue" size={40} />
+          </Link>
           <div>
             <div
               size={30}

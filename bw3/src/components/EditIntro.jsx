@@ -1,11 +1,73 @@
-import { Container, Form, Button, Col, Row } from "react-bootstrap";
+import { Container, Form, Button, Col, Row, Spinner } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { getProfileEdit } from "../Redux/actions";
 
 const EditIntro = () => {
+  //   const [edit, setEdit] = useState("");
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.edit.profileData);
+  const [editName, setEditName] = useState(data.name);
+  const [editSurname, setEditSurname] = useState(data.surname);
+  const [editUsername, setEditUsername] = useState(data.username);
+  const isLoading = useSelector((state) => state.edit.isLoading);
+  const [editLocation, setEditLocation] = useState(data.area);
+  const [editTitle, setEditTitle] = useState(data.title);
+  const [editBio, setEditBio] = useState(data.bio);
+  console.log(data);
+  const editedProfile = {
+    name: editName,
+    surname: editSurname,
+    username: editUsername,
+    title: editTitle,
+    bio: editBio,
+    area: editLocation,
+  };
+  console.log(editedProfile);
+
+  useEffect(() => {
+    dispatch(getProfileEdit());
+  }, []);
+  const handleChange = (e) => {
+    setEditName(e.target.value);
+    dispatch(getProfileEdit(editedProfile));
+  };
+  const handleSurname = (e) => {
+    setEditSurname(e.target.value);
+    dispatch(getProfileEdit(editedProfile));
+  };
+  const handleTitle = (e) => {
+    setEditTitle(e.target.value);
+    dispatch(getProfileEdit(editedProfile));
+  };
+  const handleUsername = (e) => {
+    setEditUsername(e.target.value);
+    dispatch(getProfileEdit(editedProfile));
+  };
+  const handleLocation = (e) => {
+    setEditLocation(e.target.value);
+    dispatch(getProfileEdit(editedProfile));
+  };
+  const handleBio = (e) => {
+    setEditBio(e.target.value);
+    dispatch(getProfileEdit(editedProfile));
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <Container>
-      <Row>
+    <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto mt-5 edit-container">
+      {isLoading && (
+        <Spinner
+          animation="border"
+          role="status"
+          className="custom-spinner-color"
+        ></Spinner>
+      )}
+      <Row className="mt-5">
         <Col md={8} className="edit-intro-col py-4 edit-intro">
           <div className="d-flex justify-content-between">
             <h5 className="edit-intro-edit">Edit intro</h5>
@@ -14,12 +76,14 @@ const EditIntro = () => {
             </Link>
           </div>
           <span>* Indicates required</span>
-          <Form className="mt-4">
+          <Form onSubmit={handleSubmit} className="mt-4">
             <Form.Group className="mb-3" controlId="formBasicText">
               <Form.Label>First name*</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter Your first name"
+                value={editName}
+                onChange={handleChange}
                 required
               />
             </Form.Group>
@@ -27,6 +91,8 @@ const EditIntro = () => {
               <Form.Label>Last name*</Form.Label>
               <Form.Control
                 type="text"
+                value={editSurname}
+                onChange={handleSurname}
                 placeholder="Enter Your last name"
                 required
               />
@@ -35,18 +101,32 @@ const EditIntro = () => {
               <Form.Label>Additional name</Form.Label>
               <Form.Control
                 type="text"
+                value={editUsername}
+                onChange={handleUsername}
                 placeholder="Enter Your additional name"
               />
               <Form.Text className="text-muted">Name Pronunciation</Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicText">
               <Form.Label>Headline*</Form.Label>
-              <Form.Control type="text" placeholder="Civil Engineer" required />
+              <Form.Control
+                type="text"
+                value={editTitle}
+                onChange={handleTitle}
+                placeholder="Civil Engineer"
+                required
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicText">
               <h5>Current Position</h5>
               <Form.Label>Position*</Form.Label>
-              <Form.Control type="text" placeholder="Web Dev" required />
+              <Form.Control
+                type="text"
+                value={editBio}
+                onChange={handleBio}
+                // placeholder="Web Dev"
+                required
+              />
             </Form.Group>
             <Link className="text-primary">
               <Icon.Plus size={20} /> <span>Add new Position</span>
@@ -66,7 +146,7 @@ const EditIntro = () => {
               <Form.Control
                 type="text"
                 placeholder="Software Development"
-                required
+                // required
               />
               <Form.Text className="text-muted">
                 Learn more about{" "}
@@ -76,7 +156,13 @@ const EditIntro = () => {
             <Form.Group className="mb-3" controlId="formBasicText">
               <h5>Location</h5>
               <Form.Label>Coutry/Region*</Form.Label>
-              <Form.Control type="text" placeholder="Zimbabwe" required />
+              <Form.Control
+                type="text"
+                value={editLocation}
+                onChange={handleLocation}
+                placeholder="Zimbabwe"
+                required
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicText">
               <Form.Label>Postal code</Form.Label>
