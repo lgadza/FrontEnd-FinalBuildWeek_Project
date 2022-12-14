@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSomeoneProfilData } from "../Redux/actions/index";
+import { getProfilDataExpereince } from "../Redux/actions/index";
 
 const UserProfile = () => {
   const params = useParams();
@@ -14,11 +15,16 @@ const UserProfile = () => {
   const [data, setData] = useState("");
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile.profileData);
+  const userProfileData = useSelector(
+    (state) => state.someoneProfile.profileData
+  );
   console.log(profileData.image);
+  const experince = useSelector((state) => state.userExperiences.profileData);
 
   useEffect(() => {
     dispatch(getSomeoneProfilData(params));
     dispatch(getProfilData());
+    dispatch(getProfilDataExpereince(userProfileData._id));
   }, []);
   const myStyle = {
     backgroundImage:
@@ -98,8 +104,18 @@ const UserProfile = () => {
                   </div>
                 </div>
                 <div className="px-3 pb-4 mt-5">
-                  <p>University of Bialystok</p>
-                  <p>University of Bialystok</p>
+                  {experince.length !== 0 ? (
+                    <>
+                      <Link>
+                        <p>University of Bialystok</p>
+                      </Link>
+                      <Link>
+                        <p>University of Bialystok</p>
+                      </Link>
+                    </>
+                  ) : (
+                    false
+                  )}
                 </div>
               </div>
             </div>

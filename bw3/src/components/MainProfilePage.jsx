@@ -9,15 +9,20 @@ import ExperienceSection from "./ExperienceSection";
 import EditIntro from "./EditIntro";
 import AddToProfile from "./AddToProfile";
 import ContactInfo from "./ContactInfo";
+import { getProfilDataExpereince } from "../Redux/actions/index";
 
 const MainProfilePage = () => {
   const [data, setData] = useState("");
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile.profileData);
   console.log(profileData.image);
+  const experince = useSelector((state) => state.userExperiences.profileData);
+  console.log(experince);
+  console.log("userId", profileData._id);
 
   useEffect(() => {
     dispatch(getProfilData());
+    dispatch(getProfilDataExpereince(profileData._id));
   }, []);
   const myStyle = {
     backgroundImage:
@@ -213,12 +218,18 @@ const MainProfilePage = () => {
                   </div>
                 </div>
                 <div className="px-3 pb-4 mt-5">
-                  <Link>
-                    <p>University of Bialystok</p>
-                  </Link>
-                  <Link>
-                    <p>University of Bialystok</p>
-                  </Link>
+                  {experince.length !== 0 ? (
+                    <>
+                      <Link>
+                        <p>University of Bialystok</p>
+                      </Link>
+                      <Link>
+                        <p>University of Bialystok</p>
+                      </Link>
+                    </>
+                  ) : (
+                    false
+                  )}
                 </div>
               </div>
             </div>

@@ -141,8 +141,8 @@ input[type="search"]:focus {
   width: 40vw !important;
 }
 .title {
-  display: inline-block;
-  max-width: 200px;
+  display: block;
+  max-width: 160px;
   white-space: nowrap;
   text-overflow: ellipsis !important;
   overflow: hidden;

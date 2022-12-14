@@ -12,8 +12,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { getProfileEdit } from "../Redux/actions";
+import EditContactInfo from "./EditContactInfo";
 
-const EditIntro = ({ visible, onhide }) => {
+const EditIntro = ({ visible, onhide, profile }) => {
   //   const [edit, setEdit] = useState("");
   const dispatch = useDispatch();
   const data = useSelector((state) => state.edit.profileData);
@@ -65,7 +66,9 @@ const EditIntro = ({ visible, onhide }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
   };
-
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <Modal scrollable show={visible} size="lg" onHide={onhide}>
       <Modal.Header closeButton>
@@ -184,7 +187,9 @@ const EditIntro = ({ visible, onhide }) => {
                   </Form.Text>
                 </Form.Group>
                 <Form.Group>
-                  <Link className="text-primary">Edit contact info</Link>
+                  <Link onClick={handleShow} className="text-primary">
+                    Edit contact info
+                  </Link>
                 </Form.Group>
               </Form>
             </Col>
@@ -199,6 +204,8 @@ const EditIntro = ({ visible, onhide }) => {
           Save Changes
         </Button>
       </Modal.Footer>
+
+      <EditContactInfo profile={data} visible={show} onhide={handleClose} />
     </Modal>
   );
 };

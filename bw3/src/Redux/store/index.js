@@ -10,6 +10,7 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import multProfileReducer from "../reducers/multProfileReducer";
 import editProfileReducer from "../reducers/editProfile";
 import getSomeoneProfile from "../reducers/getSomeoneProfile";
+import getUserExperience from "../reducers/getUserExperience";
 const persistConfig = {
   key: "root",
   storage: localStorage,
@@ -25,6 +26,7 @@ const bigReducer = combineReducers({
   profiles: multProfileReducer,
   edit: editProfileReducer,
   someoneProfile: getSomeoneProfile,
+  userExperiences: getUserExperience,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);
