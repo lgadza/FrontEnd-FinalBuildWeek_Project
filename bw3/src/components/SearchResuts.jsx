@@ -2,6 +2,7 @@ import { Container, Row } from "react-bootstrap";
 import EachSearch from "./EachSeach";
 
 const SearchResults = ({ profiles }) => {
+  console.log(profiles);
   return (
     <Container className="search-results  nav-arrange mt-2  ">
       {profiles && (

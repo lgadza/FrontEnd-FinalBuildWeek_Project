@@ -11,6 +11,8 @@ import multProfileReducer from "../reducers/multProfileReducer";
 import editProfileReducer from "../reducers/editProfile";
 import getSomeoneProfile from "../reducers/getSomeoneProfile";
 import getUserExperience from "../reducers/getUserExperience";
+import createPost from "../reducers/createPostReducer";
+import getPost from "../reducers/getPostReducer";
 const persistConfig = {
   key: "root",
   storage: localStorage,
@@ -27,6 +29,8 @@ const bigReducer = combineReducers({
   edit: editProfileReducer,
   someoneProfile: getSomeoneProfile,
   userExperiences: getUserExperience,
+  createPost: createPost,
+  getPost: getPost,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

@@ -251,3 +251,34 @@ input[type="search"]:focus {
 .add-to-profile-link {
   text-decoration: none !important;
 }
+.create-post-image {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+.post-image {
+  object-fit: cover !important;
+  height: min-content;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 70vh;
+}
+.my-btn {
+  border: none;
+  background-color: white;
+  font-size: 1em;
+  color: gray;
+}
+.primary {
+  border-radius: 20px;
+  border-color: blue;
+  color: blue;
+}
+.secondary {
+  border: none;
+  color: rgb(91, 91, 96);
+  background-color: transparent;
+}
+input[type="radio"] {
+  transform: scale(1.5);
+}
