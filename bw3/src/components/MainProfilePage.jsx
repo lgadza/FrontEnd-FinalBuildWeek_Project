@@ -7,6 +7,8 @@ import * as Icon from "react-bootstrap-icons";
 import UserExperince from "./UserExperince";
 import ExperienceSection from "./ExperienceSection";
 import EditIntro from "./EditIntro";
+import AddToProfile from "./AddToProfile";
+import ContactInfo from "./ContactInfo";
 
 const MainProfilePage = () => {
   const [data, setData] = useState("");
@@ -30,12 +32,16 @@ const MainProfilePage = () => {
     borderTopRightRadius: "10px",
   };
   const [show, setShow] = useState(false);
-  //   const [editShow, setEditShow] = useState(false);
+  const [showContactInfo, setShowContactInfo] = useState(false);
+  const [showAddProfile, setShowAddProfile] = useState(false);
   console.log(show);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //   const onClickEdit = () => setEditShow(true);
+  const handleShowAddProfile = () => setShowAddProfile(true);
+  const handleCloseAddProfile = () => setShowAddProfile(false);
+  const handleShowContactInfo = () => setShowContactInfo(true);
+  const handleCloseContactInfo = () => setShowContactInfo(false);
 
   return (
     <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto mt-5">
@@ -74,11 +80,16 @@ const MainProfilePage = () => {
                       </h5>
                     </Link>
                     <h6>{profileData.title} </h6>
-                    <p className="profile-views mt-4 mb-0 pb-0 ">
+                    <p className=" mt-4 mb-0 pb-0 ">
                       {profileData.area} <Icon.Dot />
-                      <Link className="text-primary">Contact info</Link>
+                      <Link
+                        onClick={handleShowContactInfo}
+                        className="text-primary"
+                      >
+                        Contact info
+                      </Link>
                     </p>
-                    <p className="profile-views mt-4 mb-0 pb-0 ">
+                    <p className=" mt-4 mb-0 pb-0 ">
                       {
                         <Badge className="mr-3 followers" bg="info">
                           146
@@ -88,7 +99,7 @@ const MainProfilePage = () => {
                       <Icon.Dot />
                       <Link className="text-primary">
                         {
-                          <Badge className="mr-2 followers" bg="info">
+                          <Badge className="mr-2 " bg="info">
                             100 +
                           </Badge>
                         }
@@ -99,7 +110,7 @@ const MainProfilePage = () => {
                       <Dropdown>
                         <Dropdown.Toggle variant="" id="">
                           <Link className="message-user  px-3 py-1 mr-3">
-                            <span>Open to</span>
+                            <span className="text-white">Open to</span>
                           </Link>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
@@ -136,7 +147,11 @@ const MainProfilePage = () => {
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
-                      <Link className="message-more px-4 py-1  mr-3 add-more-section">
+                      <Link
+                        // to="/add-profile-section"
+                        onClick={handleShowAddProfile}
+                        className="message-more px-4 py-1  mr-3 add-more-section"
+                      >
                         <span>Add profile section</span>
                       </Link>
 
@@ -218,6 +233,12 @@ const MainProfilePage = () => {
         {/* <UserExperince profileData={profileData} /> */}
       </Row>
       <EditIntro visible={show} onhide={handleClose} />
+      <AddToProfile visible={showAddProfile} onhide={handleCloseAddProfile} />
+      <ContactInfo
+        visible={showContactInfo}
+        onhide={handleCloseContactInfo}
+        profile={profileData}
+      />
     </Container>
   );
 };

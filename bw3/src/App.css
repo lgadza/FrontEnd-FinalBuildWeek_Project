@@ -244,3 +244,10 @@ input[type="search"]:focus {
   display: flex;
   justify-content: flex-end !important;
 }
+
+.modal-dialog {
+  min-height: 85vh !important;
+}
+.add-to-profile-link {
+  text-decoration: none !important;
+}
