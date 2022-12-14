@@ -230,7 +230,6 @@ const MainProfilePage = () => {
         <Col md={9} className="px-0">
           <ExperienceSection />
         </Col>
-        {/* <UserExperince profileData={profileData} /> */}
       </Row>
       <EditIntro visible={show} onhide={handleClose} />
       <AddToProfile visible={showAddProfile} onhide={handleCloseAddProfile} />

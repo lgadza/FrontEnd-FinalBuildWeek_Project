@@ -1,4 +1,5 @@
 export const GET_PROFILE = "GET_PROFILE";
+export const GET_SOMEONE_PROFILE = "GET_SOMEONE_PROFILE";
 export const GET_MULT_PROFILES = "GET_MULT_PROFILES";
 export const GET_MULT_PROFILES_LOADING = "GET_MULT_PROFILES_LOADING";
 export const GET_PROFILE_LOADING = "GET_PROFILE_LOADING";
@@ -7,6 +8,8 @@ export const GET_MULT_PROFILES_ERROR = "GET_MULT_PROFILES_ERROR";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const EDIT_PROFILE_LOADING = "EDIT_PROFILE_LOADING";
 export const EDIT_PROFILE_ERROR = "EDIT_PROFILE_ERROR";
+export const EDIT_SOMEONE_PROFILE_LOADING = "EDIT_SOMEONE_PROFILE_LOADING";
+export const EDIT_SOMEONE_PROFILE_ERROR = "EDIT_SOMEONE_PROFILE_ERROR";
 
 export const getBooksAction = () => {
   return async (dispatch, getState) => {
@@ -68,6 +71,61 @@ export const getProfilData = (query) => {
 
       dispatch({
         type: GET_PROFILE_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
+export const getSomeoneProfilData = (userId) => {
+  console.log(userId);
+  return async (dispatch) => {
+    const options = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
+      },
+    };
+    const url = `https://striveschool-api.herokuapp.com/api/profile/${userId}`;
+    try {
+      let response = await fetch(url, options);
+      if (response.ok) {
+        const data = await response.json();
+        dispatch({
+          type: GET_SOMEONE_PROFILE,
+          payload: data,
+        });
+        setTimeout(() => {
+          dispatch({
+            type: EDIT_SOMEONE_PROFILE_LOADING,
+            payload: false,
+          });
+        }, 100);
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: EDIT_SOMEONE_PROFILE_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: EDIT_SOMEONE_PROFILE_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: EDIT_SOMEONE_PROFILE_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: EDIT_SOMEONE_PROFILE_ERROR,
         payload: true,
       });
     }

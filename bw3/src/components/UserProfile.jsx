@@ -5,6 +5,7 @@ import { getProfilData } from "../Redux/actions/index";
 import { Link } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
+import { getSomeoneProfilData } from "../Redux/actions/index";
 
 const UserProfile = () => {
   const params = useParams();
@@ -16,6 +17,7 @@ const UserProfile = () => {
   console.log(profileData.image);
 
   useEffect(() => {
+    dispatch(getSomeoneProfilData(params));
     dispatch(getProfilData());
   }, []);
   const myStyle = {
