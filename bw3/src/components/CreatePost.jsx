@@ -6,6 +6,7 @@ import WhoCanSeeYourPost from "./WhoCanSeePost";
 import { createPost } from "../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostEdit } from "../Redux/actions";
+import PostImage from "./PostImage";
 
 const CreatePost = ({ clicked, visible, onhide, profile }) => {
   const [show, setShow] = useState(false);
@@ -14,13 +15,16 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
   const dispatch = useDispatch();
   const getPost = useSelector((state) => state.postWithId.profileData);
   console.log(clicked);
+  const [showPostImage, setShowPostImage] = useState(false);
+  const handleClosePostImage = () => setShowPostImage(false);
+  const handleShowPostImage = () => setShowPostImage(true);
 
   const [postText, setPostText] = useState(profile.text);
   const post = {
     text: postText,
   };
   console.log(post);
-
+  console.log(profile.image);
   const handleChange = (e) => {
     setPostText(e.target.value);
   };
@@ -102,7 +106,11 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
           </Row>
           <Row className="my-3">
             <div>
-              <Icon.Image size={30} className="mr-4" />
+              <Icon.Image
+                onClick={handleShowPostImage}
+                size={30}
+                className="mr-4"
+              />
               <Icon.PlayBtnFill size={30} className="mr-4" />
               <Icon.FileEarmarkRichtextFill size={30} className="mr-4" />
               <Icon.ThreeDots size={30} className="mr-4" />
@@ -127,11 +135,16 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
           </Row>
         </Container>
       </Modal.Body>
-      {/* <EditContactInfo profile={profile} visible={show} onhide={handleClose} /> */}
+
       <WhoCanSeeYourPost
         profile={profile}
         visible={show}
         onhide={handleClose}
+      />
+      <PostImage
+        visible={showPostImage}
+        onhide={handleClosePostImage}
+        userId={profile._id}
       />
     </Modal>
   );

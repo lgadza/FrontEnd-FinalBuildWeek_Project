@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { getProfilData } from "../Redux/actions/index";
 
-const PostProfileImage = ({ visible, onhide, userId }) => {
+const PostImage = ({ visible, onhide, postId }) => {
   const dispatch = useDispatch();
   const handlePost = (e) => {
     handleUpload(e);
@@ -25,7 +25,7 @@ const PostProfileImage = ({ visible, onhide, userId }) => {
 
     formData.append("profile", files[0]);
     axios({
-      url: `https://striveschool-api.herokuapp.com/api/profile/${userId}/picture`,
+      url: `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
       method: "POST",
       headers: {
         Authorization:
@@ -57,7 +57,7 @@ const PostProfileImage = ({ visible, onhide, userId }) => {
       className="modal-hieght"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Add profile photo?</Modal.Title>
+        <Modal.Title>Edit your post?</Modal.Title>
       </Modal.Header>
       <Modal.Body className="py-0 mt-5 pt-5 mx-auto align-items-center">
         <Container className="mt-5 pt-5 d-flex justfify-content-center">
@@ -74,11 +74,11 @@ const PostProfileImage = ({ visible, onhide, userId }) => {
             Cancel
           </button>
           <button onClick={handlePost} className="secondary px-4 py-1" active>
-            Post
+            Update
           </button>
         </div>
       </Modal.Footer>
     </Modal>
   );
 };
-export default PostProfileImage;
+export default PostImage;
