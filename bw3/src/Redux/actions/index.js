@@ -33,7 +33,6 @@ export const getBooksAction = () => {
   return async (dispatch, getState) => {
     console.log("Fetching the books from the API...");
     try {
-      //HEAR ADD YOUR CODE...
     } catch (error) {
       console.log(error);
     }

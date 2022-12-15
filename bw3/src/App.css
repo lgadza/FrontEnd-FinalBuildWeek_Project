@@ -314,3 +314,8 @@ input[type="radio"] {
 .linkedinlogo {
   width: 8rem;
 }
+.edit-profile-image {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+}

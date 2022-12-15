@@ -17,6 +17,7 @@ import EducationSection from "./EducationalComponent";
 import SkillComponent from "./SkillComponent";
 import Footer from "./FooterComponent";
 import Activity from "./ActivityComponent";
+import EditProfileImage from "./EditProfileImage";
 
 const MainProfilePage = () => {
   const [data, setData] = useState("");
@@ -44,12 +45,15 @@ const MainProfilePage = () => {
     borderTopRightRadius: "10px",
   };
   const [show, setShow] = useState(false);
+  const [showEditProfilePic, setShowEditProfilePic] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showAddProfile, setShowAddProfile] = useState(false);
   console.log(show);
 
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const handleShowEditProfilePic = () => setShowEditProfilePic(true);
+  const handleCloseEditProfilePic = () => setShowEditProfilePic(false);
   const handleShowAddProfile = () => setShowAddProfile(true);
   const handleCloseAddProfile = () => setShowAddProfile(false);
   const handleShowContactInfo = () => setShowContactInfo(true);
@@ -68,6 +72,7 @@ const MainProfilePage = () => {
                 <div style={myStyle} className="mx-auto w-100 px-3 m-0 ">
                   <Link className="position-image">
                     <img
+                      onClick={handleShowEditProfilePic}
                       className=" user-profile-picture mt-5  "
                       src={profileData.image}
                       alt={profileData.username}
@@ -289,6 +294,11 @@ const MainProfilePage = () => {
         <ContactInfo
           visible={showContactInfo}
           onhide={handleCloseContactInfo}
+          profile={profileData}
+        />
+        <EditProfileImage
+          visible={showEditProfilePic}
+          onhide={handleCloseEditProfilePic}
           profile={profileData}
         />
       </Container>
