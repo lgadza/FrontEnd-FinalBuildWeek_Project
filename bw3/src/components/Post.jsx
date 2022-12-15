@@ -4,7 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CreatePost from "./CreatePost";
-const Post = ({ visible, onhide, post }) => {
+import { getPostEdit } from "../Redux/actions";
+import DeletePost from "./DetelePost";
+import { deletePost } from "../Redux/actions";
+const Post = ({
+  visible,
+  onhide,
+  post,
+  selectedPost,
+  book,
+  changeSelectedPost,
+}) => {
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [query, setQuery] = useState("");
@@ -18,10 +28,27 @@ const Post = ({ visible, onhide, post }) => {
   };
   const postId = post.user._id;
   const myId = myProfile._id;
-  const [show, setShow] = useState(false);
 
+  const [show, setShow] = useState(false);
+  const [deletePost, setDeletePost] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseDelete = () => setDeletePost(false);
+  const handleDelete = () => {
+    dispatch(getPostEdit(post._id));
+    setDeletePost(true);
+    setDeleteClicked(true);
+    changeSelectedPost(post._id);
+    // if (selectedPost === post._id) {
+    //   dispatch(getPostEdit(post._id));
+    // }
+  };
+  const handleShow = () => {
+    setShow(true);
+    setClicked(true);
+    dispatch(getPostEdit(post._id));
+  };
 
   return (
     <div className="post-section my-2 w-100  mx-0 ">
@@ -141,7 +168,7 @@ const Post = ({ visible, onhide, post }) => {
                       <span>Edit</span>
                     </div>
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-1">
+                  <Dropdown.Item onClick={handleDelete}>
                     <div className="my-2">
                       <Icon.Trash3Fill
                         className="mr-3 mb-3 my-auto"
@@ -245,7 +272,26 @@ const Post = ({ visible, onhide, post }) => {
           <Button variant="primary">Post</Button>
         </div>
       )}
-      <CreatePost profile={myProfile} visible={show} onhide={handleClose} />
+      {clicked && (
+        <CreatePost
+          postTextId={post._id}
+          clicked={clicked}
+          profile={post}
+          visible={show}
+          onhide={handleClose}
+        />
+      )}
+      {myId === postId ? (
+        <DeletePost
+          postTextId={post._id}
+          clicked={deleteClicked}
+          profile={myProfile}
+          visible={deletePost}
+          onhide={handleCloseDelete}
+        />
+      ) : (
+        false
+      )}
     </div>
   );
 };

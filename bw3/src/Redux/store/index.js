@@ -14,6 +14,7 @@ import getUserExperience from "../reducers/getUserExperience";
 import createPost from "../reducers/createPostReducer";
 import getPost from "../reducers/getPostReducer";
 import postWithId from "../reducers/postWithId";
+import deleteWithId from "../reducers/deletePostWithId";
 
 const persistConfig = {
   key: "root",
@@ -34,6 +35,7 @@ const bigReducer = combineReducers({
   createPost: createPost,
   getPost: getPost,
   postWithId: postWithId,
+  deletePost: deleteWithId,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

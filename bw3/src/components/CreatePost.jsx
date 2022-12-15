@@ -5,14 +5,17 @@ import { useState, useEffect } from "react";
 import WhoCanSeeYourPost from "./WhoCanSeePost";
 import { createPost } from "../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+import { getPostEdit } from "../Redux/actions";
 
-const CreatePost = ({ visible, onhide, profile }) => {
+const CreatePost = ({ clicked, visible, onhide, profile }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [postText, setPostText] = useState("");
   const dispatch = useDispatch();
-  //   const post = useSelector((state) => state.createPost.profileData);
+  const getPost = useSelector((state) => state.postWithId.profileData);
+  console.log(clicked);
+
+  const [postText, setPostText] = useState(profile.text);
   const post = {
     text: postText,
   };
@@ -21,9 +24,10 @@ const CreatePost = ({ visible, onhide, profile }) => {
   const handleChange = (e) => {
     setPostText(e.target.value);
   };
-  const handleSubmit = () => {
-    dispatch(createPost(post));
-  };
+
+  useEffect(() => {
+    dispatch(getPostEdit(post._id));
+  }, []);
   return (
     <Modal
       scrollable
@@ -61,18 +65,37 @@ const CreatePost = ({ visible, onhide, profile }) => {
             </div>
           </Row>
           <Row>
-            <Form.Group
-              className="mb-3 w-100 mt-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              {/* <Form.Label>Description</Form.Label> */}
-              <Form.Control
-                as="textarea"
-                rows={15}
-                placeholder="What do you want to talk about today?"
-                onChange={handleChange}
-              />
-            </Form.Group>
+            {clicked && (
+              <Form.Group
+                className="mb-3 w-100 mt-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Control
+                  as="textarea"
+                  rows={15}
+                  placeholder="What do you want to talk about today?"
+                  value={postText}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            )}
+          </Row>
+          <Row>
+            {clicked ? (
+              false
+            ) : (
+              <Form.Group
+                className="mb-3 w-100 mt-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Control
+                  as="textarea"
+                  rows={15}
+                  placeholder="What do you want to talk about today?"
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            )}
           </Row>
           <Row>
             <Icon.EmojiSmile size={30} />
@@ -90,7 +113,14 @@ const CreatePost = ({ visible, onhide, profile }) => {
             </div>
             <div className="ml-auto">
               <Icon.Clock size={30} className="mr-5" />
-              <Button onClick={handleSubmit} variant="primary" active>
+              <Button
+                onClick={() => {
+                  dispatch(createPost(post));
+                  onhide();
+                }}
+                variant="primary"
+                active
+              >
                 Post
               </Button>
             </div>

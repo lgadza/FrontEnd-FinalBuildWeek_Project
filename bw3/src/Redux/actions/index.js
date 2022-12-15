@@ -1,5 +1,7 @@
 export const GET_PROFILE = "GET_PROFILE";
+export const POST_PROFILE_PIC = "POST_PROFILE_PIC";
 export const GET_POST_WITH_ID = "GET_POST_WITH_ID";
+export const DELETE_POST_WITH_ID = "DELETE_POST_WITH_ID";
 export const CREATE_POST = "CREATE_POST";
 export const GET_POST = "GET_POST";
 export const GET_PROFILE_EXPIRIENCE = "GET_PROFILE_EXPIRIENCE";
@@ -22,6 +24,10 @@ export const GET_POST_LOADING = "GET_SOMEONE_PROFILE_LOADING";
 export const GET_POST_ERROR = "GET_SOMEONE_PROFILE_ERROR";
 export const GET_POST_WITH_ID_LOADING = "GET_POST_WITH_ID_LOADING";
 export const GET_POST_WITH_ID_ERROR = "GET_POST_WITH_ID_ERROR";
+export const DELETE_POST_WITH_ID_LOADING = "GET_POST_WITH_ID_LOADING";
+export const DELETE_POST_WITH_ID_ERROR = "GET_POST_WITH_ID_ERROR";
+export const POST_PROFILE_PIC_LOADING = "POST_PROFILE_PIC_WITH_ID_LOADING";
+export const POST_PROFILE_PIC_ERROR = "POST_PROFILE_PIC_ERROR";
 
 export const getBooksAction = () => {
   return async (dispatch, getState) => {
@@ -105,6 +111,7 @@ export const createPost = (textPost) => {
     try {
       let response = await fetch(url, options);
       if (response.ok) {
+        dispatch(getPost());
         const data = await response.json();
         dispatch({
           type: CREATE_POST,
@@ -143,6 +150,61 @@ export const createPost = (textPost) => {
     }
   };
 };
+export const postProfilePic = (image, userId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
+      },
+      body: JSON.stringify(image),
+    };
+    const url = `striveschool-api.herokuapp.com/api/profile/${userId}/picture`;
+    try {
+      let response = await fetch(url, options);
+      if (response.ok) {
+        const data = await response.json();
+        dispatch({
+          type: POST_PROFILE_PIC,
+          payload: data,
+        });
+        setTimeout(() => {
+          dispatch({
+            type: POST_PROFILE_PIC_LOADING,
+            payload: false,
+          });
+        }, 100);
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: POST_PROFILE_PIC_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: POST_PROFILE_PIC_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: POST_PROFILE_PIC_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: POST_PROFILE_PIC_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
 export const getPost = () => {
   return async (dispatch) => {
     const options = {
@@ -162,7 +224,7 @@ export const getPost = () => {
         const data = await response.json();
         dispatch({
           type: GET_POST,
-          payload: data,
+          payload: data.reverse(),
         });
         setTimeout(() => {
           dispatch({
@@ -379,6 +441,7 @@ export const getProfileEdit = (editedProfile) => {
     try {
       let response = await fetch(url, options);
       if (response.ok) {
+        dispatch(getPost());
         const data = await response.json();
         console.log(data);
         dispatch({
@@ -421,7 +484,7 @@ export const getProfileEdit = (editedProfile) => {
 export const getPostEdit = (postId) => {
   return async (dispatch) => {
     const options = {
-      method: "PUT",
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -429,12 +492,13 @@ export const getPostEdit = (postId) => {
           "Bearer " +
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
       },
-      body: JSON.stringify(postId),
+      // body: JSON.stringify(postId),
     };
     const url = `https://striveschool-api.herokuapp.com/api/posts/${postId}`;
     try {
       let response = await fetch(url, options);
       if (response.ok) {
+        dispatch(getPost());
         const data = await response.json();
         console.log(data);
         dispatch({
@@ -469,6 +533,50 @@ export const getPostEdit = (postId) => {
 
       dispatch({
         type: GET_POST_WITH_ID_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
+
+export const deletePost = (postId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "DELETE",
+      headers: {
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
+      },
+    };
+    const url = `https://striveschool-api.herokuapp.com/api/posts/${postId}`;
+    try {
+      let response = await fetch(url, options);
+      console.log(response);
+      if (response.status === 204 || response.ok) {
+        dispatch(getPost());
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: DELETE_POST_WITH_ID_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: DELETE_POST_WITH_ID_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: DELETE_POST_WITH_ID_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: DELETE_POST_WITH_ID_ERROR,
         payload: true,
       });
     }

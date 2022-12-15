@@ -307,3 +307,10 @@ input[type="radio"] {
 .comment-input {
   border-radius: 20px;
 }
+.school-logo {
+  width: 3rem;
+  object-fit: cover;
+}
+.linkedinlogo {
+  width: 8rem;
+}

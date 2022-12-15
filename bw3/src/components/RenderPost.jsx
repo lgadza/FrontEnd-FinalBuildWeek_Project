@@ -6,6 +6,8 @@ import Post from "./Post";
 
 const RenderPost = () => {
   const [data, setData] = useState("");
+  const [selectedPost, setSelectedPost] = useState(null);
+
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.getPost.profileData);
   console.log(posts[0]);
@@ -19,10 +21,15 @@ const RenderPost = () => {
       {posts && (
         <div>
           {posts
-            .slice(posts.length - 50, posts.length)
-            .reverse()
+            .slice(0, 15)
+
             .map((post) => (
-              <Post key={post._id} post={post} />
+              <Post
+                key={post._id}
+                post={post}
+                selectedPost={selectedPost}
+                changeSelectedPost={(id) => setSelectedPost(id)}
+              />
             ))}
         </div>
       )}
