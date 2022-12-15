@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewExperience } from "../Redux/actions/index";
 import { useState, useEffect } from "react";
-const ModalComponent = ({ visible, onhide }) => {
+import { deleteSpecificExperience } from "../Redux/actions/index";
+import { getExperienceData } from "../Redux/actions/index";
+
+const ModalComponent = ({ visible, onhide, expId }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.edit.profileData);
 
@@ -20,7 +23,11 @@ const ModalComponent = ({ visible, onhide }) => {
   const [startYear, setStartYear] = useState("");
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
-
+  const handleDelete = () => {
+    dispatch(deleteSpecificExperience(user._id, expId._id));
+    dispatch(getExperienceData(user._id));
+    onhide();
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -256,6 +263,9 @@ const ModalComponent = ({ visible, onhide }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
+        <button onClick={handleDelete} className="text-mute mute-btn py-1 px-3">
+          Delete experience
+        </button>
         <Button variant="secondary" onClick={onhide}>
           Close
         </Button>

@@ -337,3 +337,8 @@ input[type="radio"] {
 .reccomentations:hover {
   background: lightgray;
 }
+.mute-btn {
+  border: none;
+  /* background-color: white; */
+  border-radius: 20px;
+}

@@ -656,29 +656,25 @@ export const createNewExperience = (data, userId) => {
     }
   };
 };
-export const deleteSpecificExperience = (query) => {
+export const deleteSpecificExperience = (userId, expId) => {
   return async (dispatch) => {
     const options = {
       method: "DELETE",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization:
           "Bearer " +
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
       },
     };
-    const userId = "5fc4ae95b708c200175de88d";
-    const expId = 3;
+
     const url = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`;
     try {
       let response = await fetch(url, options);
       console.log("response:", response);
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 204 || response.ok) {
+        dispatch(getExperienceData());
         dispatch({
           type: DELETE_SPECIFIC_EXPERIENCE,
-          payload: data,
         });
         setTimeout(() => {
           dispatch({
