@@ -1,8 +1,40 @@
 import React from "react";
 import { Modal, Form, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { createNewExperience } from "../Redux/actions/index";
+import { useState, useEffect } from "react";
 const ModalComponent = ({ visible, onhide }) => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.edit.profileData);
+
+  const [title, setTitle] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [location, setLocation] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [headline, setHeadline] = useState("");
+  const [description, setDescription] = useState("");
+  const [empType, setEmpType] = useState("");
+  const [checkbox, setCheckbox] = useState(false);
+  const [startMonth, setStartMonth] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [endMonth, setEndMonth] = useState("");
+  const [endYear, setEndYear] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      area: location,
+      company: companyName,
+      description: description,
+      endDate: endMonth + endYear,
+      role: title,
+      startDate: startMonth + startYear,
+      username: "admin",
+    };
+    dispatch(createNewExperience(data, user._id));
+    onhide();
+  };
   return (
     <Modal scrollable show={visible} size="lg" onHide={onhide}>
       <Modal.Header closeButton>
@@ -28,13 +60,19 @@ const ModalComponent = ({ visible, onhide }) => {
             <Form.Control
               type="text"
               placeholder="Ex: Retail Sales Manager"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               autoFocus
               required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
             <Form.Label>Employment type</Form.Label>
-            <Form.Control as="select">
+            <Form.Control
+              value={empType}
+              onChange={(e) => setEmpType(e.target.value)}
+              as="select"
+            >
               <option>Please select</option>
               <option>Full-time</option>
               <option>Part-time</option>
@@ -54,6 +92,8 @@ const ModalComponent = ({ visible, onhide }) => {
               placeholder="Ex: Microsoft"
               autoFocus
               required
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -62,12 +102,16 @@ const ModalComponent = ({ visible, onhide }) => {
               type="text"
               placeholder="Ex: London United Kingdom"
               autoFocus
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">
             <Form.Check
               type="checkbox"
               label="I am currently working in this role"
+              value={checkbox}
+              onChange={(e) => setCheckbox(e.target.value)}
             />
           </Form.Group>
 
@@ -75,7 +119,12 @@ const ModalComponent = ({ visible, onhide }) => {
             <Form.Label>Start date*</Form.Label>
             <Row>
               <Col>
-                <Form.Control as="select" required>
+                <Form.Control
+                  as="select"
+                  required
+                  value={startMonth}
+                  onChange={(e) => setStartMonth(e.target.value)}
+                >
                   <option>Month</option>
                   <option>January</option>
                   <option>February</option>
@@ -92,7 +141,12 @@ const ModalComponent = ({ visible, onhide }) => {
                 </Form.Control>
               </Col>
               <Col>
-                <Form.Control as="select" required>
+                <Form.Control
+                  as="select"
+                  required
+                  value={startYear}
+                  onChange={(e) => setStartYear(e.target.value)}
+                >
                   <option>Year</option>
                   <option>2022</option>
                   <option>2021</option>
@@ -113,7 +167,12 @@ const ModalComponent = ({ visible, onhide }) => {
             <Form.Label>End date*</Form.Label>
             <Row>
               <Col>
-                <Form.Control as="select" required>
+                <Form.Control
+                  as="select"
+                  required
+                  value={endMonth}
+                  onChange={(e) => setEndMonth(e.target.value)}
+                >
                   <option>Month</option>
                   <option>January</option>
                   <option>February</option>
@@ -130,7 +189,12 @@ const ModalComponent = ({ visible, onhide }) => {
                 </Form.Control>
               </Col>
               <Col>
-                <Form.Control as="select" required>
+                <Form.Control
+                  as="select"
+                  required
+                  value={endYear}
+                  onChange={(e) => setEndYear(e.target.value)}
+                >
                   <option>Year</option>
                   <option>2022</option>
                   <option>2021</option>
@@ -153,6 +217,8 @@ const ModalComponent = ({ visible, onhide }) => {
               placeholder="Ex: Information Technology & Services"
               autoFocus
               required
+              value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
             />
             <p className="p-0 m-0">
               LinkedIn uses industry information to provide more relevant
@@ -170,6 +236,8 @@ const ModalComponent = ({ visible, onhide }) => {
               type="text"
               placeholder="Ex: React Native developer"
               autoFocus
+              value={headline}
+              onChange={(e) => setHeadline(e.target.value)}
             />
             <p className="p-0 m-0">
               Appears below your name at the top of the profile{" "}
@@ -178,7 +246,12 @@ const ModalComponent = ({ visible, onhide }) => {
 
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows={2} />
+            <Form.Control
+              as="textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={2}
+            />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -186,7 +259,7 @@ const ModalComponent = ({ visible, onhide }) => {
         <Button variant="secondary" onClick={onhide}>
           Close
         </Button>
-        <Button variant="primary" onClick={onhide}>
+        <Button variant="primary" onClick={handleSubmit}>
           Save Changes
         </Button>
       </Modal.Footer>

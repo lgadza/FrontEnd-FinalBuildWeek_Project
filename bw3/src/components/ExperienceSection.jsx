@@ -51,36 +51,42 @@ const ExperienceSection = () => {
         <Col>
           {experiences.map((job) => (
             <>
-              <div className="mb-3  d-flex mr-3 ">
-                <div className="mr-3">
-                  <Icon.BarChartFill size={50} color="#9db3c8" />
-                </div>
-                <div>
-                  <h5 className="m-0">{job.role}</h5>
-                  <p className="m-0 fontsize14">{job.company} </p>
-                  <span className="m-0 text-muted">
-                    {new Date().getDate(job.startDate)}.
-                    {new Date().getMonth(job.startDate) + 1}.
-                    {new Date().getFullYear(job.startDate)} -{" "}
-                    {new Date().getDate(job.endDate)}.
-                    {new Date().getMonth(job.endDate) + 1}.
-                    {new Date().getFullYear(job.endDate)}
-                  </span>
-                  <p className="m-0 text-muted">{job.area}</p>
-                  <p className="mt-1 mt-4 ">
-                    <strong>Discription:</strong> {job.description}
-                  </p>
-                </div>
+              <div className="d-flex justify-content-between">
+                <di v className="mb-3  d-flex mr-3 ">
+                  <div className="mr-3">
+                    <Icon.BarChartFill size={50} color="#9db3c8" />
+                  </div>
+                  <div>
+                    <h5 className="m-0">{job.role}</h5>
+                    <p className="m-0 fontsize14">{job.company} </p>
+                    <span className="m-0 text-muted">
+                      {new Date().getDate(job.startDate)}.
+                      {new Date().getMonth(job.startDate) + 1}.
+                      {new Date().getFullYear(job.startDate)} -{" "}
+                      {new Date().getDate(job.endDate)}.
+                      {new Date().getMonth(job.endDate) + 1}.
+                      {new Date().getFullYear(job.endDate)}
+                    </span>
+                    <p className="m-0 text-muted">{job.area}</p>
+                    <p className="mt-1 mt-4 ">
+                      <strong>Discription:</strong> {job.description}
+                    </p>
+                  </div>
+                </di>
+                {editShow && (
+                  <div className="pencilIcon" onClick={handleShow}>
+                    <Icon.Pencil
+                      color="#666666"
+                      size={22}
+                      className="mt-3 plusIcon"
+                    />
+                  </div>
+                )}
               </div>
               <hr />
             </>
           ))}
         </Col>
-        {editShow && (
-          <div className="pencilIcon" onClick={handleShow}>
-            <Icon.Pencil color="#666666" size={22} className="mt-3 plusIcon" />
-          </div>
-        )}
       </Row>
       <ModalComponent visible={show} onhide={handleClose} />
     </Jumbotron>

@@ -597,7 +597,7 @@ export const deletePost = (postId) => {
     }
   };
 };
-export const createNewExperience = (data) => {
+export const createNewExperience = (data, userId) => {
   console.log(data);
   return async (dispatch) => {
     const options = {
@@ -611,13 +611,14 @@ export const createNewExperience = (data) => {
       },
       body: JSON.stringify(data),
     };
-    const userId = "5fc4ae95b708c200175de88d";
+    // const userId = "5fc4ae95b708c200s175de88d";
     const url = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences`;
     try {
       let response = await fetch(url, options);
       console.log("response:", response);
       if (response.ok) {
         const data = await response.json();
+        dispatch(getExperienceData());
         dispatch({
           type: CREATE_NEW_EXPERIENCE,
           payload: data,
