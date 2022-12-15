@@ -1,0 +1,12 @@
+.circle {
+  border-radius: 50%;
+}
+
+.rd {
+  border-radius: 50px;
+  margin-top: 1em;
+}
+
+#circle {
+  height: 50px;
+}

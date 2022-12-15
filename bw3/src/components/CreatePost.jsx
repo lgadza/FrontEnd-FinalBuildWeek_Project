@@ -7,13 +7,15 @@ import { createPost } from "../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostEdit } from "../Redux/actions";
 import PostImage from "./PostImage";
+import { getProfilData } from "../Redux/actions/index";
 
 const CreatePost = ({ clicked, visible, onhide, profile }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
-  const getPost = useSelector((state) => state.postWithId.profileData);
+
+  const profileData = useSelector((state) => state.profile.profileData);
   console.log(clicked);
   const [showPostImage, setShowPostImage] = useState(false);
   const handleClosePostImage = () => setShowPostImage(false);
@@ -23,14 +25,14 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
   const post = {
     text: postText,
   };
-  console.log(post);
-  console.log(profile.image);
+  console.log(profileData.name);
   const handleChange = (e) => {
     setPostText(e.target.value);
   };
 
   useEffect(() => {
     dispatch(getPostEdit(post._id));
+    dispatch(getProfilData());
   }, []);
   return (
     <Modal
@@ -49,14 +51,14 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
             <div>
               <img
                 className="create-post-image mr-4"
-                src={profile.image}
-                alt={profile.name}
+                src={profileData.image}
+                alt={profileData.name}
               />
             </div>
             <div>
               <Button variant="outline-secondary" className="mr-2 ">
                 <Icon.PersonFill size={15} className="mr-2" />
-                {profile.name}
+                {profileData.name}
                 <Icon.CaretDownFill size={15} className="ml-2" />
               </Button>
             </div>

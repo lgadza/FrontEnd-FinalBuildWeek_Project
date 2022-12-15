@@ -155,6 +155,12 @@ input[type="search"]:focus {
   margin-top: 40rem !important;
   transform: translateY(2rem);
 }
+.user-profile-picture2 {
+  width: 8rem;
+  height: 8rem;
+  border: 3px solid white;
+  border-radius: 50%;
+}
 .followers {
   font-size: 0.75rem !important;
 }

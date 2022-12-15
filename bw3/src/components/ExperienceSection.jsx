@@ -3,11 +3,13 @@ import { Jumbotron, Row, Col, Dropdown } from "react-bootstrap";
 import "../App.css";
 import * as Icon from "react-bootstrap-icons";
 import ModalComponent from "./ModalComponent";
+import { useSelector, useDispatch } from "react-redux";
 
 const ExperienceSection = () => {
   const [show, setShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
-
+  const experiences = useSelector((state) => state.getExpirience.expienceData);
+  console.log(experiences);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const onClickEdit = () => setEditShow(true);
@@ -46,17 +48,33 @@ const ExperienceSection = () => {
         </div>
       </Row>
       <Row className="borderBottom">
-        <div className="ImageDiv">
-          <Icon.BarChartFill size={50} color="#9db3c8" />
-        </div>
         <Col>
-          <h6 className="m-0">React Native developer</h6>
-          <p className="m-0 fontsize14">Eleconone . full-time</p>
-          <p className="m-0 fontsize14 fontGray">Aug 2021 - Mar 2022 . 8 mos</p>
-          <p className="m-0 fontsize14 fontGray">India</p>
-          <p className="mt-1 fontsize14">
-            <strong>Skill:</strong> Rest API . Git . React Native
-          </p>
+          {experiences.map((job) => (
+            <>
+              <div className="mb-3  d-flex mr-3 ">
+                <div className="mr-3">
+                  <Icon.BarChartFill size={50} color="#9db3c8" />
+                </div>
+                <div>
+                  <h5 className="m-0">{job.role}</h5>
+                  <p className="m-0 fontsize14">{job.company} </p>
+                  <span className="m-0 text-muted">
+                    {new Date().getDate(job.startDate)}.
+                    {new Date().getMonth(job.startDate) + 1}.
+                    {new Date().getFullYear(job.startDate)} -{" "}
+                    {new Date().getDate(job.endDate)}.
+                    {new Date().getMonth(job.endDate) + 1}.
+                    {new Date().getFullYear(job.endDate)}
+                  </span>
+                  <p className="m-0 text-muted">{job.area}</p>
+                  <p className="mt-1 mt-4 ">
+                    <strong>Discription:</strong> {job.description}
+                  </p>
+                </div>
+              </div>
+              <hr />
+            </>
+          ))}
         </Col>
         {editShow && (
           <div className="pencilIcon" onClick={handleShow}>

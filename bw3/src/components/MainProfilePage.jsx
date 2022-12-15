@@ -18,6 +18,7 @@ import SkillComponent from "./SkillComponent";
 import Footer from "./FooterComponent";
 import Activity from "./ActivityComponent";
 import EditProfileImage from "./EditProfileImage";
+import { getExperienceData } from "../Redux/actions/index";
 
 const MainProfilePage = () => {
   const [data, setData] = useState("");
@@ -30,7 +31,8 @@ const MainProfilePage = () => {
 
   useEffect(() => {
     dispatch(getProfilData());
-    dispatch(getProfilDataExpereince(profileData._id));
+    // dispatch(getProfilDataExpereince(profileData._id));
+    dispatch(getExperienceData(profileData._id));
   }, []);
   const myStyle = {
     backgroundImage:
