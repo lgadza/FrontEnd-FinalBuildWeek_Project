@@ -78,7 +78,7 @@
   font-weight: bold;
 }
 .top-profile-section {
-  border: 1px solid black;
+  border: 1px solid rgb(216, 205, 205);
   height: fit-content;
   border-radius: 10px;
 }
@@ -166,7 +166,7 @@ input[type="search"]:focus {
 }
 .message-more {
   width: fit-content;
-  border: 1px solid black;
+  border: 1px solid rgb(216, 205, 205);
   border-radius: 1rem;
 }
 .position-image {
@@ -186,7 +186,7 @@ input[type="search"]:focus {
   background-color: white;
 }
 .post-section {
-  border: 1px solid black;
+  border: 1px solid rgb(222, 212, 212);
   border-radius: 10px;
 }
 .post-btn {
@@ -214,7 +214,7 @@ input[type="search"]:focus {
   font-weight: lighter;
 }
 .expirence-border {
-  border: 1 solid black !important;
+  border: 1 solid rgb(216, 205, 205) !important;
 }
 .edit-intro {
   position: relative;
@@ -259,8 +259,7 @@ input[type="search"]:focus {
 .post-image {
   object-fit: cover !important;
   height: min-content;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+
   height: 70vh;
 }
 .my-btn {
@@ -281,4 +280,30 @@ input[type="search"]:focus {
 }
 input[type="radio"] {
   transform: scale(1.5);
+}
+.btn-success {
+  color: black !important;
+  background-color: white !important;
+  border: none !important;
+}
+.btn-success.dropdown-toggle:focus {
+  box-shadow: none !important;
+}
+.btn:focus {
+  box-shadow: none !important;
+}
+.btn:hover {
+  background-color: white !important;
+  color: blue !important;
+}
+.remove-text-deco:hover {
+  text-decoration: none !important;
+}
+.profile-picture-side {
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+}
+.comment-input {
+  border-radius: 20px;
 }

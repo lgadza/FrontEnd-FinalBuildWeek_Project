@@ -5,12 +5,26 @@ import { useState, useEffect } from "react";
 import CreatePost from "./CreatePost";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfilData } from "../Redux/actions/index";
+import CreatePostTample from "./CreatePostTamplet";
+import { Link } from "react-router-dom";
 
 const PostSection = () => {
   const profileData = useSelector((state) => state.profile.profileData);
   const [show, setShow] = useState(false);
+  const [showUpload, setUpLoadShow] = useState(false);
+  const [showUploadVid, setUpLoadShowVid] = useState(false);
+  const [showUploadJob, setUpLoadShowJob] = useState(false);
+  const [showUploadArticle, setUpLoadShowArticle] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleShowUpLoad = () => setUpLoadShow(true);
+  const handleShowUpLoadVid = () => setUpLoadShowVid(true);
+  const handleShowUpLoadJob = () => setUpLoadShowJob(true);
+  const handleShowUpLoadArticle = () => setUpLoadShowArticle(true);
+  const handleCloseUpLoad = () => setUpLoadShow(false);
+  const handleCloseUpLoadVid = () => setUpLoadShowVid(false);
+  const handleCloseUpLoadJob = () => setUpLoadShowJob(false);
+  const handleCloseUpLoadArticle = () => setUpLoadShowArticle(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,28 +43,48 @@ const PostSection = () => {
         </Button>
       </div>
       <div className="d-flex justify-content-between pt-2">
-        <div>
+        <Link onClick={handleShowUpLoad}>
           <Icon.Image color="blue" size={25} className="mr-4" />
           <span>Photo</span>
-        </div>
-        <div>
+        </Link>
+        <Link onClick={handleShowUpLoadVid}>
           <Icon.PlayBtnFill color="green" size={25} className="mr-4" />
           <span>Video</span>
-        </div>
-        <div>
+        </Link>
+        <Link onClick={handleShowUpLoadJob}>
           <Icon.BriefcaseFill color="purple" size={25} className="mr-4" />
           <span>Job</span>
-        </div>
-        <div>
+        </Link>
+        <Link onClick={handleShowUpLoadArticle}>
           <Icon.LayoutTextWindowReverse
-            color="orenge"
+            color="orange"
             size={25}
             className="mr-4 article"
           />
           <span>Write article</span>
-        </div>
+        </Link>
       </div>
       <CreatePost profile={profileData} visible={show} onhide={handleClose} />
+      <CreatePostTample
+        file="images"
+        visible={showUpload}
+        onhide={handleCloseUpLoad}
+      />
+      <CreatePostTample
+        file="video"
+        visible={showUploadVid}
+        onhide={handleCloseUpLoadVid}
+      />
+      <CreatePostTample
+        file="company"
+        visible={showUploadJob}
+        onhide={handleCloseUpLoadJob}
+      />
+      <CreatePostTample
+        file="Article"
+        visible={showUploadArticle}
+        onhide={handleCloseUpLoadArticle}
+      />
     </Col>
   );
 };

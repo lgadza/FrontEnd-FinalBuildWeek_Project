@@ -7,10 +7,11 @@ import * as Icon from "react-bootstrap-icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSomeoneProfilData } from "../Redux/actions/index";
 import { getProfilDataExpereince } from "../Redux/actions/index";
+import ContactInfo from "./ContactInfo";
 
 const UserProfile = () => {
   const params = useParams();
-  console.log("params", params);
+  console.log("params", params.userId);
   const navigate = useNavigate();
   const [data, setData] = useState("");
   const dispatch = useDispatch();
@@ -18,11 +19,13 @@ const UserProfile = () => {
   const userProfileData = useSelector(
     (state) => state.someoneProfile.profileData
   );
-  console.log(profileData.image);
+  const [showContactInfo, setShowContactInfo] = useState(false);
+
+  console.log(userProfileData);
   const experince = useSelector((state) => state.userExperiences.profileData);
 
   useEffect(() => {
-    dispatch(getSomeoneProfilData(params));
+    dispatch(getSomeoneProfilData(params.userId));
     dispatch(getProfilData());
     dispatch(getProfilDataExpereince(userProfileData._id));
   }, []);
@@ -38,18 +41,20 @@ const UserProfile = () => {
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   };
+  const handleShowContactInfo = () => setShowContactInfo(true);
+  const handleCloseContactInfo = () => setShowContactInfo(false);
   return (
     <Container className="p-0 m-0 d-flex flex-column justify-content-center ml-auto mt-5">
       <Row>
         <Col md={9} className="mt-5  back-ground px-0">
-          {profileData && (
+          {userProfileData && (
             <div className="top-profile-section">
               <div style={myStyle} className="mx-auto w-100 px-3 m-0 ">
                 <Link className="position-image">
                   <img
                     className=" user-profile-picture mt-5  "
-                    src={profileData.image}
-                    alt={profileData.username}
+                    src={userProfileData.image}
+                    alt={userProfileData.username}
                   />
                   <Icon.RecordCircleFill
                     className="record-online"
@@ -63,17 +68,22 @@ const UserProfile = () => {
                   <div className="px-3 pb-4 mt-5">
                     <Link>
                       <h5>
-                        {profileData.name}
+                        {userProfileData.name}
                         {"  "}
-                        {profileData.surname}
+                        {userProfileData.surname}
                       </h5>
                     </Link>
-                    <h6>{profileData.title} </h6>
-                    <p className="profile-views mt-4 mb-0 pb-0 ">
-                      {profileData.area} <Icon.Dot />
-                      <Link className="text-primary">Contact info</Link>
+                    <h6>{userProfileData.title} </h6>
+                    <p className="mt-4 mb-0 pb-0 ">
+                      {userProfileData.area} <Icon.Dot />
+                      <Link
+                        onClick={handleShowContactInfo}
+                        className="text-primary"
+                      >
+                        Contact info
+                      </Link>
                     </p>
-                    <p className="profile-views mt-4 mb-0 pb-0 ">
+                    <p className=" mt-4 mb-0 pb-0 ">
                       {
                         <Badge className="mr-3 followers" bg="info">
                           146
@@ -83,7 +93,7 @@ const UserProfile = () => {
                       <Icon.Dot />
                       <Link className="text-primary">
                         {
-                          <Badge className="mr-2 followers" bg="info">
+                          <Badge className="mr-2 " bg="info">
                             100 +
                           </Badge>
                         }
@@ -122,6 +132,11 @@ const UserProfile = () => {
           )}
         </Col>
       </Row>
+      <ContactInfo
+        visible={showContactInfo}
+        onhide={handleCloseContactInfo}
+        profile={userProfileData}
+      />
     </Container>
   );
 };

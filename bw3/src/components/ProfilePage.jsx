@@ -32,7 +32,7 @@ const ProfilePage = () => {
           <div style={myStyle} className="mx-auto w-100 px-3 m-0 ">
             <Link to="/profile">
               <img
-                className="profile-picture  mt-5 "
+                className="profile-picture profile-picture-side  mt-5 "
                 src={profileData.image}
                 alt={profileData.username}
               />

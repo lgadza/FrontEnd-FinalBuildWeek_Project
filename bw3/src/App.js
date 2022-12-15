@@ -19,7 +19,7 @@ function App() {
         <Route element={<Home />} path="/" />
         <Route element={<EditIntro />} path="/edit" />
         <Route element={<MainProfilePage />} path="/profile" />
-        <Route element={<UserProfile />} path="/user-profil/:userId" />
+        <Route element={<UserProfile />} path="/user-profile/:userId" />
       </Routes>
     </BrowserRouter>
   );

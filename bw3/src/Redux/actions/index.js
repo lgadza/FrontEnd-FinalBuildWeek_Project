@@ -1,4 +1,5 @@
 export const GET_PROFILE = "GET_PROFILE";
+export const GET_POST_WITH_ID = "GET_POST_WITH_ID";
 export const CREATE_POST = "CREATE_POST";
 export const GET_POST = "GET_POST";
 export const GET_PROFILE_EXPIRIENCE = "GET_PROFILE_EXPIRIENCE";
@@ -19,6 +20,8 @@ export const CREATE_POST_LOADING = "CREATE_POST_LOADING";
 export const CREATE_POST_ERROR = "CREATE_POST_ERROR";
 export const GET_POST_LOADING = "GET_SOMEONE_PROFILE_LOADING";
 export const GET_POST_ERROR = "GET_SOMEONE_PROFILE_ERROR";
+export const GET_POST_WITH_ID_LOADING = "GET_POST_WITH_ID_LOADING";
+export const GET_POST_WITH_ID_ERROR = "GET_POST_WITH_ID_ERROR";
 
 export const getBooksAction = () => {
   return async (dispatch, getState) => {
@@ -410,6 +413,62 @@ export const getProfileEdit = (editedProfile) => {
 
       dispatch({
         type: EDIT_PROFILE_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
+export const getPostEdit = (postId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
+      },
+      body: JSON.stringify(postId),
+    };
+    const url = `https://striveschool-api.herokuapp.com/api/posts/${postId}`;
+    try {
+      let response = await fetch(url, options);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch({
+          type: GET_POST_WITH_ID,
+          payload: data,
+        });
+        setTimeout(() => {
+          dispatch({
+            type: GET_POST_WITH_ID_LOADING,
+            payload: false,
+          });
+        }, 100);
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: GET_POST_WITH_ID_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: GET_POST_WITH_ID_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: GET_POST_WITH_ID_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: GET_POST_WITH_ID_ERROR,
         payload: true,
       });
     }

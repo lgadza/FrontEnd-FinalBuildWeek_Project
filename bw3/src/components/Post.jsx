@@ -1,55 +1,175 @@
-import { Container, Row, Button } from "react-bootstrap";
+import { Container, Row, Button, Dropdown } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
-import { format, parse } from "date-fns";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import CreatePost from "./CreatePost";
 const Post = ({ visible, onhide, post }) => {
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
+  const [query, setQuery] = useState("");
+  const myProfile = useSelector((state) => state.profile.profileData);
+  const [comment, setComment] = useState(false);
+  const handleComment = () => {
+    setComment(true);
+  };
+  const handleQuery = (e) => {
+    setQuery(e.target.value);
+  };
+  const postId = post.user._id;
+  const myId = myProfile._id;
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div className="post-section my-2 w-100  mx-0 ">
       <div className="d-flex justify-content-start align-items-center p-2   ">
-        <div className="d-flex  align-items-center  ">
-          <div>
-            {post.user.image && (
-              <img
-                className="create-post-image mr-2"
-                src={post.user.image}
-                alt="Louis"
-              />
-            )}
-          </div>
-
-          <div className="d-flex flex-column">
-            <h6>
+        <Link
+          className="remove-text-deco"
+          to={`/user-profile/${post.user._id}`}
+        >
+          <div className="d-flex  align-items-center  ">
+            <div>
               {post.user.image && (
-                <span>
-                  {post.user.name}
-                  {"  "} {post.user.surname}
-                </span>
+                <img
+                  className="create-post-image mr-2"
+                  src={post.user.image}
+                  alt="Louis"
+                />
               )}
-            </h6>
-            <div>
-              <span>6,772 {"  "}followers</span>
             </div>
-            <div>
-              <span>
-                {new Date().getDate(post.updatedAt)}.
-                {new Date().getMonth(post.updatedAt) + 1}.
-                {new Date().getFullYear(post.updatedAt)}
-              </span>
-              <Icon.Dot />
-              <Icon.GlobeEuropeAfrica size={15} className="mr-2" />
+
+            <div className="d-flex flex-column">
+              <h6>
+                {post.user.image && (
+                  <span>
+                    {post.user.name}
+                    {"  "} {post.user.surname}
+                  </span>
+                )}
+              </h6>
+              <div>
+                <span>6,772 {"  "}followers</span>
+              </div>
+              <div>
+                <span>
+                  {new Date().getDate(post.updatedAt)}.
+                  {new Date().getMonth(post.updatedAt) + 1}.
+                  {new Date().getFullYear(post.updatedAt)}
+                </span>
+                <Icon.Dot />
+                <Icon.GlobeEuropeAfrica size={15} className="mr-2" />
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
         <div className="ml-auto ">
-          <Icon.ThreeDots size={30} />
+          <Dropdown className="my-dropdown">
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Icon.ThreeDots size={30} />
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">
+                <div className="d-flex align-items-center my-2">
+                  <Icon.Bookmark className="mr-3 mb-3 my-auto" size={25} />
+
+                  <span>Save</span>
+                </div>
+              </Dropdown.Item>
+              <Dropdown.Item href="#/action-1">
+                <div className="my-2">
+                  <Icon.Link45deg className="mr-3 mb-3 my-auto" size={25} />
+                  <span>Copy link to post</span>
+                </div>
+              </Dropdown.Item>
+              <Dropdown.Item href="#/action-1">
+                <div className="my-2">
+                  <Icon.CodeSlash className="mr-3 mb-3 my-auto" size={25} />
+                  <span>Embed this post </span>
+                </div>
+              </Dropdown.Item>
+              {myId !== postId ? (
+                <>
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.EyeSlashFill
+                        className="mr-3 mb-3 my-auto"
+                        size={25}
+                      />
+                      <span>I don't want to see this</span>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.XCircleFill
+                        className="mr-3 mb-3 my-auto"
+                        size={25}
+                      />
+                      <span>
+                        Unfollow {post.user.name} {post.user.surname}
+                      </span>
+                    </div>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.PersonFillX
+                        className="mr-3 mb-3 my-auto"
+                        size={25}
+                      />
+                      <span>
+                        Remove connection with {post.user.name}{" "}
+                        {post.user.surname}
+                      </span>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.FlagFill className="mr-3 mb-3 my-auto" size={25} />
+                      <span>Report post</span>
+                    </div>
+                  </Dropdown.Item>
+                </>
+              ) : (
+                <>
+                  <Dropdown.Item onClick={handleShow} href="#/action-1">
+                    <div className="my-2">
+                      <Icon.Pencil className="mr-3 mb-3 my-auto" size={25} />
+                      <span>Edit</span>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.Trash3Fill
+                        className="mr-3 mb-3 my-auto"
+                        size={25}
+                      />
+                      <span>Delete post</span>
+                    </div>
+                  </Dropdown.Item>
+
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.ChatText className="mr-3 mb-3 my-auto" size={25} />
+                      <span>Who can comment on this post?</span>
+                    </div>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">
+                    <div className="my-2">
+                      <Icon.EyeFill className="mr-3 mb-3 my-auto" size={25} />
+                      <span>Who can see this post?</span>
+                    </div>
+                  </Dropdown.Item>
+                </>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
       <div className="p-2">
-        {/* <p className="post-text">{post.text}</p> */}
         <p className="post-text">
           {showMore ? post.text : `${post.text.substring(0, 130)}`}
           {post.text.length > 130 && (
@@ -72,6 +192,60 @@ const Post = ({ visible, onhide, post }) => {
           />
         )}
       </div>
+      <div className="d-flex justify-content-between m-3 align-items-center">
+        <div>
+          <img
+            className="profile-picture "
+            src={myProfile.image}
+            alt={myProfile.name}
+          />
+        </div>
+        <div>
+          <Icon.HandThumbsUp className="mr-2" size={30} />
+          <span>Like</span>
+        </div>
+        <Link onClick={handleComment}>
+          <Icon.ChatText className="mr-2 remove-text-deco" size={30} />
+          <span className="remove-text-deco">Comment</span>
+        </Link>
+        <div>
+          <Icon.Repeat className="mr-2" size={30} />
+          <span>Repost</span>
+        </div>
+        <div>
+          <Icon.SendFill className="mr-2" size={30} />
+          <span>Send</span>
+        </div>
+      </div>
+      {comment && (
+        <div className="d-flex align-items-center mx-3">
+          <div className="mr-4">
+            <img
+              className="profile-picture "
+              src={myProfile.image}
+              alt={myProfile.name}
+            />
+          </div>
+          <div className="w-100 my-3 comment-input">
+            <input
+              className="comment-input w-100 d-block py-2 px-4"
+              type="text"
+              placeholder="Add acomment...."
+              onChange={handleQuery}
+            />
+          </div>
+          <div className="d-flex">
+            <Icon.EmojiSmile className="mx-2" size={30} />
+            <Icon.Image size={30} />
+          </div>
+        </div>
+      )}
+      {query && (
+        <div className=" mx-5 mb-3">
+          <Button variant="primary">Post</Button>
+        </div>
+      )}
+      <CreatePost profile={myProfile} visible={show} onhide={handleClose} />
     </div>
   );
 };

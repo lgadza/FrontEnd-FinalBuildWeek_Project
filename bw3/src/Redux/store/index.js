@@ -13,6 +13,8 @@ import getSomeoneProfile from "../reducers/getSomeoneProfile";
 import getUserExperience from "../reducers/getUserExperience";
 import createPost from "../reducers/createPostReducer";
 import getPost from "../reducers/getPostReducer";
+import postWithId from "../reducers/postWithId";
+
 const persistConfig = {
   key: "root",
   storage: localStorage,
@@ -31,6 +33,7 @@ const bigReducer = combineReducers({
   userExperiences: getUserExperience,
   createPost: createPost,
   getPost: getPost,
+  postWithId: postWithId,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);
