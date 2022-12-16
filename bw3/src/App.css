@@ -351,3 +351,6 @@ input[type="radio"] {
   height: 2rem;
   border-radius: 50%;
 }
+.text-bg-secondary {
+  background-color: azure !important;
+}
