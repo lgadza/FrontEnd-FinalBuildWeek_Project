@@ -85,10 +85,10 @@ const Post = ({
                 )}
               </h6>
               <div>
-                <span>6,772 {"  "}followers</span>
+                <span className="text-muted">6,772 {"  "}followers</span>
               </div>
               <div>
-                <span>
+                <span className="text-muted">
                   {new Date().getDate(post.updatedAt)}.
                   {new Date().getMonth(post.updatedAt) + 1}.
                   {new Date().getFullYear(post.updatedAt)}
