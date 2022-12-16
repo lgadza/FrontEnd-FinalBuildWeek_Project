@@ -1,4 +1,4 @@
-import { Container, Row, Button, Dropdown } from "react-bootstrap";
+import { Container, Badge, Button, Dropdown } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
@@ -34,6 +34,7 @@ const Post = ({
   const handleLiked = () => {
     liked === false ? setLiked(true) : setLiked(false);
   };
+  const count = 0;
   const [show, setShow] = useState(false);
   const [deletePost, setDeletePost] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -69,7 +70,7 @@ const Post = ({
                 <img
                   className="create-post-image mr-2"
                   src={post.user.image}
-                  alt="Louis"
+                  alt=""
                 />
               )}
             </div>
@@ -221,6 +222,12 @@ const Post = ({
           <img className="post-image  w-100" src={post.image} alt="" />
         )}
       </div>
+      {liked && (
+        <div className="ml-5">
+          <Icon.HandThumbsUpFill color="blue" size={15} />
+          <Badge bg="secondary">{count + 1}</Badge>
+        </div>
+      )}
       <div className="d-flex justify-content-between m-3 align-items-center">
         <div>
           <img
