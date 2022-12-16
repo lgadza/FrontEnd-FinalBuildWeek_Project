@@ -30,7 +30,10 @@ const Post = ({
   };
   const postId = post.user._id;
   const myId = myProfile._id;
-
+  const [liked, setLiked] = useState(false);
+  const handleLiked = () => {
+    liked === false ? setLiked(true) : setLiked(false);
+  };
   const [show, setShow] = useState(false);
   const [deletePost, setDeletePost] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -227,7 +230,20 @@ const Post = ({
           />
         </div>
         <div>
-          <Icon.HandThumbsUp className="mr-2" size={30} />
+          {liked === true ? (
+            <Icon.HandThumbsUpFill
+              className="mr-2"
+              color="blue"
+              size={30}
+              onClick={handleLiked}
+            />
+          ) : (
+            <Icon.HandThumbsUp
+              className="mr-2"
+              size={30}
+              onClick={handleLiked}
+            />
+          )}
           <span>Like</span>
         </div>
         <Link onClick={handleComment}>
