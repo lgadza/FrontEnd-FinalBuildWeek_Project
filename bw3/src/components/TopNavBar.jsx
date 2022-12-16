@@ -14,8 +14,10 @@ import SearchResults from "./SearchResuts";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { getMuiltiProfileData } from "../Redux/actions";
+import { getProfilData } from "../Redux/actions/index";
 
 const TopNavBar = () => {
+  const profileData = useSelector((state) => state.profile.profileData);
   const [isMyInputFocused, setIsMyInputFocused] = useState(false);
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
@@ -27,10 +29,16 @@ const TopNavBar = () => {
 
   console.log(query);
   useEffect(() => {
+    dispatch(getProfilData());
+
     dispatch(getMuiltiProfileData());
   }, []);
   const handleChange = (e) => {
     setQuery(e.target.value);
+    setIsMyInputFocused(true);
+  };
+  const handleCloseSearch = () => {
+    setIsMyInputFocused(false);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -48,7 +56,7 @@ const TopNavBar = () => {
           <div>
             <div
               size={30}
-              className="d-flex align-items-center ml-4 search-me "
+              className="d-flex align-items-center  ml-4 search-me "
             >
               <Icon.Search size={15} className="mx-3" />
               <Form onSubmit={handleSubmit} className="d-flex">
@@ -60,7 +68,6 @@ const TopNavBar = () => {
                   value={query}
                   onChange={handleChange}
                   onFocus={() => setIsMyInputFocused(true)}
-                  onBlur={() => setIsMyInputFocused(false)}
                 />
               </Form>
             </div>
@@ -68,6 +75,7 @@ const TopNavBar = () => {
               <SearchResults
                 profiles={filteredProfiles}
                 className="top-z-index"
+                hide={handleCloseSearch}
               />
             )}
           </div>
@@ -78,7 +86,7 @@ const TopNavBar = () => {
               <div>
                 <Icon.HouseDoor size={20} className="mx-3" />
               </div>
-              <div>Home</div>
+              <div className="d-md-none d-lg-block">Home</div>
             </div>
           </Link>
           <Link to="/user-profile/">
@@ -86,7 +94,7 @@ const TopNavBar = () => {
               <div>
                 <Icon.PeopleFill size={20} className="mx-3" />
               </div>
-              <div>My Network</div>
+              <div className="d-md-none d-lg-block">My Network</div>
             </div>
           </Link>
           <Link to="/home">
@@ -94,7 +102,7 @@ const TopNavBar = () => {
               <div>
                 <Icon.BriefcaseFill size={20} className="mx-3" />
               </div>
-              <div>Jobs</div>
+              <div className="d-md-none d-lg-block">Jobs</div>
             </div>
           </Link>
           <Link to="/home">
@@ -102,7 +110,7 @@ const TopNavBar = () => {
               <div>
                 <Icon.ChatSquareDotsFill size={20} className="mx-3" />
               </div>
-              <div>Messaging</div>
+              <div className="d-md-none d-lg-block">Messaging</div>
             </div>
           </Link>
           <Link to="/home">
@@ -110,15 +118,15 @@ const TopNavBar = () => {
               <div>
                 <Icon.BellFill size={20} className="mx-3" />
               </div>
-              <div>Notifications</div>
+              <div className="d-md-none d-lg-block">Notifications</div>
             </div>
           </Link>
           <Link to="/home">
             <div className="d-flex align-items-center justfy-content-center flex-column mx-2">
               <div>
-                <img src="" alt="" />
+                <img src={profileData.image} className="circle-image" alt="" />
               </div>
-              <div>
+              <div className="d-md-none d-lg-block">
                 <NavDropdown title="Me" id="basic-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
@@ -141,7 +149,7 @@ const TopNavBar = () => {
               <div>
                 <Icon.Grid3x3GapFill size={20} className="mx-3" />
               </div>
-              <div>Work</div>
+              <div className="d-md-none d-lg-block">Work</div>
             </div>
           </Link>
         </Nav>

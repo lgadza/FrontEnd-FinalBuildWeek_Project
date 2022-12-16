@@ -8,13 +8,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPostEdit } from "../Redux/actions";
 import PostImage from "./PostImage";
 import { getProfilData } from "../Redux/actions/index";
+import { editPost } from "../Redux/actions/index";
 
-const CreatePost = ({ clicked, visible, onhide, profile }) => {
+const CreatePost = ({ clicked, visible, onhide, profile, clickedPost }) => {
+  const [postClicked, setPostClicked] = useState(false);
+  const handleClicked = () => setPostClicked(true);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
-
+  console.log(profile._id);
   const profileData = useSelector((state) => state.profile.profileData);
   console.log(clicked);
   const [showPostImage, setShowPostImage] = useState(false);
@@ -25,7 +28,7 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
   const post = {
     text: postText,
   };
-  console.log(profileData.name);
+  console.log(postText);
   const handleChange = (e) => {
     setPostText(e.target.value);
   };
@@ -104,7 +107,9 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
             )}
           </Row>
           <Row>
-            <Icon.EmojiSmile size={30} />
+            <Link>
+              <Icon.EmojiSmile size={30} />
+            </Link>
           </Row>
           <Row className="my-3">
             <div>
@@ -121,18 +126,36 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
               <Icon.ChatText size={30} className="mr-2" />
               <span>Anyone</span>
             </div>
-            <div className="ml-auto">
-              <Icon.Clock size={30} className="mr-5" />
-              <Button
-                onClick={() => {
-                  dispatch(createPost(post));
-                  onhide();
-                }}
-                variant="primary"
-                active
-              >
-                Post
-              </Button>
+            <div>
+              {clickedPost !== true ? (
+                <div className="ml-auto">
+                  <Icon.Clock size={30} className="mr-5" />
+                  <Button
+                    onClick={() => {
+                      dispatch(editPost(post, profile._id));
+                      onhide();
+                    }}
+                    variant="primary"
+                    active
+                  >
+                    Post
+                  </Button>
+                </div>
+              ) : (
+                <div className="ml-auto">
+                  <Icon.Clock size={30} className="mr-5" />
+                  <Button
+                    onClick={() => {
+                      dispatch(createPost(post));
+                      onhide();
+                    }}
+                    variant="primary"
+                    active
+                  >
+                    Post
+                  </Button>
+                </div>
+              )}
             </div>
           </Row>
         </Container>
@@ -147,6 +170,7 @@ const CreatePost = ({ clicked, visible, onhide, profile }) => {
         visible={showPostImage}
         onhide={handleClosePostImage}
         userId={profile._id}
+        postId={profile._id}
       />
     </Modal>
   );

@@ -1,4 +1,5 @@
 export const GET_PROFILE = "GET_PROFILE";
+export const EDIT_POST = "EDIT_POST";
 export const GET_EXPERIENCE = "GET_EXPERIENCE";
 export const EDIT_SPECIFIC_EXPERIENCE = "EDIT_SPECIFIC_EXPERIENCE";
 export const DELETE_SPECIFIC_EXPERIENCE =
@@ -44,6 +45,8 @@ export const EDIT_SPECIFIC_EXPERIENCE_LOADING =
 export const EDIT_SPECIFIC_EXPERIENCE_ERROR = "EDIT_SPECIFIC_EXPERIENCE_ERROR";
 export const GET_EXPERIENCE_LOADING = "GET_EXPERIENCE_LOADING";
 export const GET_EXPERIENCE_ERROR = "GET_EXPERIENCE_ERROR";
+export const EDIT_POST_LOADING = "EDIT_POST_LOADING";
+export const EDIT_POST_ERROR = "EDIT_POST_ERROR";
 
 export const getBooksAction = () => {
   return async (dispatch, getState) => {
@@ -160,6 +163,62 @@ export const createPost = (textPost) => {
 
       dispatch({
         type: CREATE_POST_ERROR,
+        payload: true,
+      });
+    }
+  };
+};
+export const editPost = (textPost, postId) => {
+  return async (dispatch) => {
+    const options = {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer " +
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
+      },
+      body: JSON.stringify(textPost),
+    };
+    const url = `https://striveschool-api.herokuapp.com/api/posts/${postId}`;
+    try {
+      let response = await fetch(url, options);
+      if (response.ok) {
+        dispatch(getPost());
+        const data = await response.json();
+        dispatch({
+          type: EDIT_POST,
+          payload: data,
+        });
+        setTimeout(() => {
+          dispatch({
+            type: EDIT_POST_LOADING,
+            payload: false,
+          });
+        }, 100);
+      } else {
+        console.log("error");
+
+        dispatch({
+          type: EDIT_POST_LOADING,
+          payload: false,
+        });
+        dispatch({
+          type: EDIT_POST_ERROR,
+          payload: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: EDIT_POST_LOADING,
+        payload: false,
+      });
+
+      dispatch({
+        type: EDIT_POST_ERROR,
         payload: true,
       });
     }
@@ -618,7 +677,7 @@ export const createNewExperience = (data, userId) => {
       console.log("response:", response);
       if (response.ok) {
         const data = await response.json();
-        dispatch(getExperienceData());
+        // dispatch(getExperienceData());
         dispatch({
           type: CREATE_NEW_EXPERIENCE,
           payload: data,
@@ -656,7 +715,7 @@ export const createNewExperience = (data, userId) => {
     }
   };
 };
-export const deleteSpecificExperience = (userId, expId) => {
+export const deleteSpecificExperience = (expId, userId) => {
   return async (dispatch) => {
     const options = {
       method: "DELETE",
@@ -666,7 +725,7 @@ export const deleteSpecificExperience = (userId, expId) => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk2ZWNmNGM5NmRmYjAwMTUyMWE1YjYiLCJpYXQiOjE2NzA4MzU0NDQsImV4cCI6MTY3MjA0NTA0NH0.OiSWNKNb0QBsvVyYlCXEefOvmeyzTcK6f2yax4u2JY8",
       },
     };
-
+    // const userId = "6396ecf4c96dfb001521a5b6";
     const url = `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}`;
     try {
       let response = await fetch(url, options);
@@ -675,6 +734,7 @@ export const deleteSpecificExperience = (userId, expId) => {
         dispatch(getExperienceData());
         dispatch({
           type: DELETE_SPECIFIC_EXPERIENCE,
+          payload: false,
         });
         setTimeout(() => {
           dispatch({

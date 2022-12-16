@@ -10,7 +10,7 @@ const RenderPost = () => {
 
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.getPost.profileData);
-  console.log(posts[0]);
+  console.log(posts);
 
   useEffect(() => {
     dispatch(getPost());

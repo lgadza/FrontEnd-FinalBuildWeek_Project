@@ -64,7 +64,12 @@ const PostSection = () => {
           <span>Write article</span>
         </Link>
       </div>
-      <CreatePost profile={profileData} visible={show} onhide={handleClose} />
+      <CreatePost
+        profile={profileData}
+        visible={show}
+        onhide={handleClose}
+        clickedPost={true}
+      />
       <CreatePostTample
         file="images"
         visible={showUpload}

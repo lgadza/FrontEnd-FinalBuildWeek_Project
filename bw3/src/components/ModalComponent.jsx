@@ -23,8 +23,9 @@ const ModalComponent = ({ visible, onhide, expId }) => {
   const [startYear, setStartYear] = useState("");
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
+
   const handleDelete = () => {
-    dispatch(deleteSpecificExperience(user._id, expId._id));
+    dispatch(deleteSpecificExperience(expId, user._id));
     dispatch(getExperienceData(user._id));
     onhide();
   };
@@ -37,7 +38,6 @@ const ModalComponent = ({ visible, onhide, expId }) => {
       endDate: endMonth + endYear,
       role: title,
       startDate: startMonth + startYear,
-      username: "admin",
     };
     dispatch(createNewExperience(data, user._id));
     onhide();

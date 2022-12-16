@@ -1,11 +1,21 @@
 import * as Icon from "react-bootstrap-icons";
+import { useState, useEffect } from "react";
+import PostExpirienceImage from "./PostExpirienceImage";
 
 const SingleExpirience = ({ job }) => {
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
   return (
     <>
-      <di v className="mb-3  d-flex mr-3 ">
-        <div className="mr-3">
-          <Icon.BarChartFill size={50} color="#9db3c8" />
+      <div className="mb-3  d-flex mr-3 ">
+        <div onClick={handleShow} className="mr-3">
+          {job.image ? (
+            <img src={job.image} className="exp-image" alt="" />
+          ) : (
+            <Icon.BarChartFill size={50} color="#9db3c8" />
+          )}
         </div>
         <div>
           <h5 className="m-0">{job.role}</h5>
@@ -23,8 +33,13 @@ const SingleExpirience = ({ job }) => {
             <strong>Discription:</strong> {job.description}
           </p>
         </div>
-      </di>
-
+      </div>
+      <PostExpirienceImage
+        visible={show}
+        onhide={handleClose}
+        userId={job.user}
+        expId={job._id}
+      />
       <hr />
     </>
   );

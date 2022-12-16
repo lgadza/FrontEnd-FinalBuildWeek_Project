@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getSomeoneProfilData } from "../Redux/actions/index";
 import { getProfilDataExpereince } from "../Redux/actions/index";
 import ContactInfo from "./ContactInfo";
+import { getExperienceData } from "../Redux/actions/index";
 
 const UserProfile = () => {
   const params = useParams();
@@ -16,22 +17,22 @@ const UserProfile = () => {
   const [data, setData] = useState("");
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.profile.profileData);
+
   const userProfileData = useSelector(
     (state) => state.someoneProfile.profileData
   );
   const [showContactInfo, setShowContactInfo] = useState(false);
 
-  console.log(userProfileData);
   const experince = useSelector((state) => state.userExperiences.profileData);
-
+  console.log(experince);
   useEffect(() => {
     dispatch(getSomeoneProfilData(params.userId));
     dispatch(getProfilData());
     dispatch(getProfilDataExpereince(userProfileData._id));
-  }, []);
+    dispatch(getExperienceData(userProfileData._id));
+  }, [params]);
   const myStyle = {
-    backgroundImage:
-      "url('https://improvephotography.com/wp-content/uploads/2017/07/DSCF5660-Edit-1.jpg')",
+    backgroundImage: `url(${userProfileData.image})`,
     height: "25vh",
     width: "20%",
     marginTop: "0px",
@@ -114,18 +115,26 @@ const UserProfile = () => {
                   </div>
                 </div>
                 <div className="px-3 pb-4 mt-5">
-                  {experince.length !== 0 ? (
-                    <>
-                      <Link>
-                        <p>University of Bialystok</p>
-                      </Link>
-                      <Link>
-                        <p>University of Bialystok</p>
-                      </Link>
-                    </>
-                  ) : (
-                    false
-                  )}
+                  {experince.length !== 0
+                    ? experince.slice(0, 3).map((exp) => (
+                        <div className="mb-3  d-flex mr-3 align-items-center ">
+                          <div className="mr-3">
+                            {exp.image ? (
+                              <img
+                                src={exp.image}
+                                className="exp-image"
+                                alt=""
+                              />
+                            ) : (
+                              <Icon.BarChartFill size={50} color="#9db3c8" />
+                            )}
+                          </div>
+                          <Link>
+                            <p>{exp.company}</p>
+                          </Link>
+                        </div>
+                      ))
+                    : false}
                 </div>
               </div>
             </div>

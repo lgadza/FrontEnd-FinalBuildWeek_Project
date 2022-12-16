@@ -5,11 +5,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { getProfilData } from "../Redux/actions/index";
 
-const PostImage = ({ visible, onhide, postId }) => {
+const PostExpirienceImage = ({ visible, onhide, userId, expId }) => {
   const dispatch = useDispatch();
   const handlePost = (e) => {
     handleUpload(e);
-    console.log("deleted");
     onhide();
   };
   const [state, setState] = useState(null);
@@ -23,9 +22,9 @@ const PostImage = ({ visible, onhide, postId }) => {
 
     let formData = new FormData();
 
-    formData.append("post", files[0]);
+    formData.append("experience", files[0]);
     axios({
-      url: `https://striveschool-api.herokuapp.com/api/posts/${postId}`,
+      url: `https://striveschool-api.herokuapp.com/api/profile/${userId}/experiences/${expId}/picture`,
       method: "POST",
       headers: {
         Authorization:
@@ -57,7 +56,7 @@ const PostImage = ({ visible, onhide, postId }) => {
       className="modal-hieght"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Edit your post?</Modal.Title>
+        <Modal.Title>Edit your company logo?</Modal.Title>
       </Modal.Header>
       <Modal.Body className="py-0 mt-5 pt-5 mx-auto align-items-center">
         <Container className="mt-5 pt-5 d-flex justfify-content-center">
@@ -81,4 +80,4 @@ const PostImage = ({ visible, onhide, postId }) => {
     </Modal>
   );
 };
-export default PostImage;
+export default PostExpirienceImage;

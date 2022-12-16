@@ -2,15 +2,12 @@ import { Col, Container, Row } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 // import { useState, useEffect } from "react";
-const EachSearch = ({ profile }) => {
+const EachSearch = ({ profile, hide }) => {
   //   const [check, setCheck] = useState("");
-  const Clicked = () => {
-    console.log("Clicked");
-  };
 
   return (
     <Container className="d-flex align-items-center justify-content-between mx-1  ">
-      <Link onClick={Clicked} to={`/user-profile/${profile._id}`}>
+      <Link onClick={hide} to={`/user-profile/${profile._id}`}>
         <Row>
           <Col>
             <div className="d-flex align-items-center ">

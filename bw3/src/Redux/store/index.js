@@ -19,6 +19,7 @@ import newExpirience from "../reducers/createNewExpirence";
 import deleteExpirience from "../reducers/deteleExpirienceReducer";
 import editExperience from "../reducers/editExpirience";
 import getExpirience from "../reducers/getExpirienceData";
+import editPost from "../reducers/editPost";
 
 const persistConfig = {
   key: "root",
@@ -44,6 +45,7 @@ const bigReducer = combineReducers({
   deleteExpirience: deleteExpirience,
   editExperience: editExperience,
   getExpirience: getExpirience,
+  editPost: editPost,
 });
 
 const persistedReducer = persistReducer(persistConfig, bigReducer);

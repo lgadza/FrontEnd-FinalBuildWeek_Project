@@ -31,8 +31,8 @@ const MainProfilePage = () => {
 
   useEffect(() => {
     dispatch(getProfilData());
-    // dispatch(getProfilDataExpereince(profileData._id));
     dispatch(getExperienceData(profileData._id));
+    dispatch(getProfilDataExpereince(profileData._id));
   }, []);
   const myStyle = {
     backgroundImage:
@@ -171,7 +171,6 @@ const MainProfilePage = () => {
                           </Dropdown.Menu>
                         </Dropdown>
                         <Link
-                          // to="/add-profile-section"
                           onClick={handleShowAddProfile}
                           className="message-more px-4 py-1  mr-3 add-more-section"
                         >
@@ -236,18 +235,26 @@ const MainProfilePage = () => {
                     </div>
                   </div>
                   <div className="px-3 pb-4 mt-5">
-                    {experince.length !== 0 ? (
-                      <>
-                        <Link>
-                          <p>University of Bialystok</p>
-                        </Link>
-                        <Link>
-                          <p>University of Bialystok</p>
-                        </Link>
-                      </>
-                    ) : (
-                      false
-                    )}
+                    {experince.length !== 0
+                      ? experince.map((exp) => (
+                          <div className="mb-3  d-flex mr-3 align-items-center ">
+                            <div className="mr-3">
+                              {exp.image ? (
+                                <img
+                                  src={exp.image}
+                                  className="exp-image"
+                                  alt=""
+                                />
+                              ) : (
+                                <Icon.BarChartFill size={50} color="#9db3c8" />
+                              )}
+                            </div>
+                            <Link>
+                              <p>{exp.company}</p>
+                            </Link>
+                          </div>
+                        ))
+                      : false}
                   </div>
                 </div>
               </div>
@@ -267,7 +274,7 @@ const MainProfilePage = () => {
         </Row>
         <Row>
           <Col md={9} className="px-0">
-            <AboutComponent />
+            <AboutComponent profile={profileData} />
           </Col>
         </Row>
         <Row>

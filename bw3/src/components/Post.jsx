@@ -7,6 +7,8 @@ import CreatePost from "./CreatePost";
 import { getPostEdit } from "../Redux/actions";
 import DeletePost from "./DetelePost";
 import { deletePost } from "../Redux/actions";
+import { getExperienceData } from "../Redux/actions/index";
+
 const Post = ({
   visible,
   onhide,
@@ -40,20 +42,21 @@ const Post = ({
     setDeletePost(true);
     setDeleteClicked(true);
     changeSelectedPost(post._id);
-    // if (selectedPost === post._id) {
-    //   dispatch(getPostEdit(post._id));
-    // }
   };
   const handleShow = () => {
     setShow(true);
     setClicked(true);
     dispatch(getPostEdit(post._id));
   };
+  const handleExp = () => {
+    dispatch(getExperienceData(post.user._id));
+  };
 
   return (
     <div className="post-section my-2 w-100  mx-0 ">
       <div className="d-flex justify-content-start align-items-center p-2   ">
         <Link
+          onClick={handleExp}
           className="remove-text-deco"
           to={`/user-profile/${post.user._id}`}
         >
@@ -211,12 +214,8 @@ const Post = ({
         </p>
       </div>
       <div>
-        {post.user.image && (
-          <img
-            className="post-image  w-100"
-            src={post.user.image}
-            alt="Louis"
-          />
+        {post.image && (
+          <img className="post-image  w-100" src={post.image} alt="" />
         )}
       </div>
       <div className="d-flex justify-content-between m-3 align-items-center">
