@@ -1,4 +1,12 @@
-import { Col, Container, Badge, Row, Button, Dropdown } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Badge,
+  Row,
+  Button,
+  Dropdown,
+  Spinner,
+} from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfilData } from "../Redux/actions/index";
@@ -28,7 +36,8 @@ const MainProfilePage = () => {
   const experince = useSelector((state) => state.userExperiences.profileData);
   console.log(experince);
   console.log("userId", profileData._id);
-
+  const showLoader = useSelector((state) => state.profile.is);
+  console.log(showLoader);
   useEffect(() => {
     dispatch(getProfilData());
     dispatch(getExperienceData(profileData._id));
@@ -66,6 +75,7 @@ const MainProfilePage = () => {
       fluid
       className="p-0 m-0 d-flex flex-column justify-content-center ml-auto mt-5"
     >
+      {showLoader && <Spinner animation="grow" />}
       <Container>
         <Row>
           <Col md={9} className="mt-5  back-ground px-0">

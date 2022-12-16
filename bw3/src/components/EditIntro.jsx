@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { getProfileEdit } from "../Redux/actions";
 import EditContactInfo from "./EditContactInfo";
+import { getProfilData } from "../Redux/actions/index";
 
 const EditIntro = ({ visible, onhide, profile }) => {
   //   const [edit, setEdit] = useState("");
@@ -25,6 +26,7 @@ const EditIntro = ({ visible, onhide, profile }) => {
   const [editLocation, setEditLocation] = useState(data.area);
   const [editTitle, setEditTitle] = useState(data.title);
   const [editBio, setEditBio] = useState(data.bio);
+
   console.log(data);
   const editedProfile = {
     name: editName,
@@ -35,7 +37,10 @@ const EditIntro = ({ visible, onhide, profile }) => {
     area: editLocation,
   };
   console.log(editedProfile);
-
+  const update = () => {
+    dispatch(getProfilData());
+    onhide();
+  };
   useEffect(() => {
     dispatch(getProfileEdit());
   }, []);
@@ -200,7 +205,7 @@ const EditIntro = ({ visible, onhide, profile }) => {
         <Button variant="secondary" onClick={onhide}>
           Close
         </Button>
-        <Button variant="primary" onClick={onhide}>
+        <Button variant="primary" onClick={update}>
           Save Changes
         </Button>
       </Modal.Footer>
