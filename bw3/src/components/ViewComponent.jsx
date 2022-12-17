@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 const PeopleViewed = () => {
   return (
     <Row>
-      <Card className="frame mt-2 w-100">
+      <Card className="frame mt-2 w-100 back-ground">
         <Card.Body className="mx-auto">
           <Card.Title className="d-flex">
             <h5>People also viewed</h5>

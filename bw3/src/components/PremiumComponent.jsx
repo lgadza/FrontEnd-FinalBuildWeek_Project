@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 const Premium = () => {
   const profileData = useSelector((state) => state.profile.profileData);
   return (
-    <Row className="mt-5 ">
-      <Card className="frame">
+    <Row className="mt-5  ">
+      <Card className=" back-ground ">
         <Card.Body>
           <Card.Title className="d-flex justify-content-end f-14b">
             <span className="mr-auto">Add to your feed</span>

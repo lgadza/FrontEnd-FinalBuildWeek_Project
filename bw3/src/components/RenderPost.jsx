@@ -17,7 +17,7 @@ const RenderPost = () => {
   }, []);
 
   return (
-    <Col className="  mt-5 px-0">
+    <Col className="  mt-5 px-0 bgWhite">
       {posts && (
         <div>
           {posts

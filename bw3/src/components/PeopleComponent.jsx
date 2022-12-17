@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 const PeopleKnow = () => {
   return (
     <Row>
-      <Card className="frame mt-2 w-100 mx-auto">
+      <Card className="frame mt-2 w-100 mx-auto back-ground">
         <Card.Body className="mx-auto">
           <Card.Title className="d-flex">
             <h5>People you may know</h5>

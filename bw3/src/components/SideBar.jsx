@@ -10,7 +10,7 @@ const { Container, Row, Col } = require("react-bootstrap");
 const SideBar = () => {
   return (
     <>
-      <Premium />
+      <Premium className="back-ground" />
       <PeopleViewed />
       <PeopleKnow />
       <Promoted />

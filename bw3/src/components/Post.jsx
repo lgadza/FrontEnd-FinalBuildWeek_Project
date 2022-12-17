@@ -8,15 +8,9 @@ import { getPostEdit } from "../Redux/actions";
 import DeletePost from "./DetelePost";
 import { deletePost } from "../Redux/actions";
 import { getExperienceData } from "../Redux/actions/index";
+import { current } from "@reduxjs/toolkit";
 
-const Post = ({
-  visible,
-  onhide,
-  post,
-  selectedPost,
-  book,
-  changeSelectedPost,
-}) => {
+const Post = ({ visible, onhide, post, selectedPost, changeSelectedPost }) => {
   const dispatch = useDispatch();
   const [showMore, setShowMore] = useState(false);
   const [query, setQuery] = useState("");
@@ -55,9 +49,29 @@ const Post = ({
   const handleExp = () => {
     dispatch(getExperienceData(post.user._id));
   };
+  const getTime = (creationTime) => {
+    let time = undefined;
+    let ltr = new Date(creationTime);
 
+    let cur = new Date();
+
+    cur.getDate() - ltr.getDate() > 356
+      ? (time = Math.round(new Date().getFullYear(creationTime) + " . yrs"))
+      : cur.getMonth() - ltr.getMonth() >= 1
+      ? (time =
+          Math.round(cur.getMonth() - ltr.getMonth(creationTime)) + " . months")
+      : cur.getDate() - ltr.getDate(creationTime) >= 1
+      ? (time =
+          Math.round(cur.getDate() - ltr.getDate(creationTime)) + " . days")
+      : cur.getHours() - ltr.getHours() >= 1
+      ? (time = Math.round(cur.getHours() - ltr.getHours()) + " . hrs")
+      : (time = Math.round(cur.getMinutes() - ltr.getMinutes()) + " . mins");
+
+    return time;
+  };
+  console.log(getTime(post.updatedAt));
   return (
-    <div className="post-section my-2 w-100  mx-0 ">
+    <div className="post-section my-2 w-100  mx-0 back-ground ">
       <div className="d-flex justify-content-start align-items-center p-2   ">
         <Link
           onClick={handleExp}
@@ -89,9 +103,10 @@ const Post = ({
               </div>
               <div>
                 <span className="text-muted">
-                  {new Date().getDate(post.updatedAt)}.
+                  {/* {new Date().getDate(post.updatedAt)}.
                   {new Date().getMonth(post.updatedAt) + 1}.
-                  {new Date().getFullYear(post.updatedAt)}
+                  {new Date().getFullYear(post.updatedAt)} */}
+                  {getTime(post.updatedAt)}
                 </span>
                 <Icon.Dot />
                 <Icon.GlobeEuropeAfrica size={15} className="mr-2" />
@@ -100,8 +115,12 @@ const Post = ({
           </div>
         </Link>
         <div className="ml-auto ">
-          <Dropdown className="my-dropdown">
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown className="my-dropdown ">
+            <Dropdown.Toggle
+              variant="success"
+              className="back-ground "
+              id="dropdown-basic"
+            >
               <Icon.ThreeDots size={30} />
             </Dropdown.Toggle>
 

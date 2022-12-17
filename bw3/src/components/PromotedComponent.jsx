@@ -4,7 +4,7 @@ import * as Icon from "react-bootstrap-icons";
 
 export default function Promoted() {
   return (
-    <Row className="    mt-2 ">
+    <Row className="    my-2 back-ground">
       <div className="d-flex justify-content-between mt-1 mb-0">
         <span className="ml-3"> Promoted</span>
 
@@ -15,7 +15,7 @@ export default function Promoted() {
           <Image
             src="https://media.licdn.com/dms/image/D4D0EAQFpxppPduLQzg/rightRail-logo-shrink_100_100/0/1666993752808?e=1671721200&v=beta&t=fNDQcjGUGdVuJjOuPl8w4oDXfOTghYSRwQZnJDFvAtQ"
             alt="verizon logo"
-            className="promoted-logo"
+            className="promoted-logo mb-2"
           />
         </div>
 

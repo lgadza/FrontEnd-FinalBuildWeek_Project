@@ -125,6 +125,20 @@ a {
   top: 0;
   z-index: 1 !important;
   background-color: transparent !important;
+  position: relative;
+}
+.my-navBar::after {
+  content: "";
+  background-color: rgb(232, 227, 227) !important;
+  position: absolute;
+  right: 0;
+  top: 0;
+  /* bottom: 0; */
+  left: -30vh;
+  z-index: -1;
+  width: 100vw;
+  margin: 0 auto;
+  height: 11vh;
 }
 
 img[alt] {
@@ -189,7 +203,8 @@ input[type="search"]:focus {
   background-color: beige !important;
 } */
 .back-ground {
-  background-color: white;
+  background-color: rgb(232, 227, 227) !important;
+  border-radius: 10px;
 }
 .post-section {
   border: 1px solid rgb(222, 212, 212);

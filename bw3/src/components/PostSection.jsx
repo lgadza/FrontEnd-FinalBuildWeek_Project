@@ -31,9 +31,13 @@ const PostSection = () => {
     dispatch(getProfilData());
   }, []);
   return (
-    <Col className="post-section px-5 mt-5 py-2 ">
-      <div className="w-100">
-        <img src="" alt="" />
+    <Col className="post-section px-5 mt-5 py-2 back-ground ">
+      <div className="w-100 d-flex justify-content-between">
+        <img
+          src={profileData.image}
+          className="profile-picture ml-auto mr-2"
+          alt=""
+        />
         <Button
           onClick={handleShow}
           className="w-100 post-btn py-3 text-start"
