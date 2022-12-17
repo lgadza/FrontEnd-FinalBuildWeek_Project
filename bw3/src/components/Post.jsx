@@ -121,7 +121,7 @@ const Post = ({ visible, onhide, post, selectedPost, changeSelectedPost }) => {
               className="back-ground "
               id="dropdown-basic"
             >
-              <Icon.ThreeDots size={30} />
+              <Icon.ThreeDots size={20} />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -260,28 +260,28 @@ const Post = ({ visible, onhide, post, selectedPost, changeSelectedPost }) => {
             <Icon.HandThumbsUpFill
               className="mr-2"
               color="blue"
-              size={30}
+              size={20}
               onClick={handleLiked}
             />
           ) : (
             <Icon.HandThumbsUp
               className="mr-2"
-              size={30}
+              size={20}
               onClick={handleLiked}
             />
           )}
           <span>Like</span>
         </div>
         <Link onClick={handleComment}>
-          <Icon.ChatText className="mr-2 remove-text-deco" size={30} />
+          <Icon.ChatText className="mr-2 remove-text-deco" size={20} />
           <span className="remove-text-deco">Comment</span>
         </Link>
         <div>
-          <Icon.Repeat className="mr-2" size={30} />
+          <Icon.Repeat className="mr-2" size={20} />
           <span>Repost</span>
         </div>
         <div>
-          <Icon.SendFill className="mr-2" size={30} />
+          <Icon.SendFill className="mr-2" size={20} />
           <span>Send</span>
         </div>
       </div>
@@ -303,8 +303,8 @@ const Post = ({ visible, onhide, post, selectedPost, changeSelectedPost }) => {
             />
           </div>
           <div className="d-flex">
-            <Icon.EmojiSmile className="mx-2" size={30} />
-            <Icon.Image size={30} />
+            <Icon.EmojiSmile className="mx-2" size={20} />
+            <Icon.Image size={20} />
           </div>
         </div>
       )}

@@ -48,22 +48,22 @@ const PostSection = () => {
       </div>
       <div className="d-flex justify-content-between pt-2">
         <Link onClick={handleShowUpLoad}>
-          <Icon.Image color="blue" size={25} className="mr-4" />
+          <Icon.Image color="blue" size={20} className="mr-2" />
           <span>Photo</span>
         </Link>
         <Link onClick={handleShowUpLoadVid}>
-          <Icon.PlayBtnFill color="green" size={25} className="mr-4" />
+          <Icon.PlayBtnFill color="green" size={20} className="mr-2" />
           <span>Video</span>
         </Link>
         <Link onClick={handleShowUpLoadJob}>
-          <Icon.BriefcaseFill color="purple" size={25} className="mr-4" />
+          <Icon.BriefcaseFill color="purple" size={20} className="mr-2" />
           <span>Job</span>
         </Link>
         <Link onClick={handleShowUpLoadArticle}>
           <Icon.LayoutTextWindowReverse
             color="orange"
-            size={25}
-            className="mr-4 article"
+            size={18}
+            className="mr-2 article"
           />
           <span>Write article</span>
         </Link>
